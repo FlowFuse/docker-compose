@@ -1,0 +1,71 @@
+port: 3000
+domain: example.com
+base_url: http://forge.example.com
+api_url: http://forge:3000
+
+#################################################
+# Database Configuration                        #
+#################################################
+
+db:
+  logging: false
+  ## The database type: sqlite|postgres
+  type: postgres
+  ### SQLite options
+
+  ## The database filename. Relative to $FLOWFORGE_HOME/var/
+  ## Set to ':memory:' for a database that is wiped on restart
+  # storage: forge.db
+
+  ### Postgres options
+
+  host: postgres
+  user: forge
+  password: secret
+
+#################################################
+# Project Driver Configuration                  #
+#################################################
+
+driver:
+  ## The type of backend driver to use
+  ##  Can be: localfs/docker/stub/k8s
+  type: docker
+
+  options:
+    ## Options to be passed to the driver
+
+    ### LocalFS options
+
+    ## The first port number to assign to projects
+    # start_port: 7880
+
+    ## Path to find node executable if not on the default path
+    # node_path: /usr/bin/node
+
+    ### Docker options
+
+    ## Docker socket path
+    socket: /tmp/docker.sock
+    # registry: hub.flowforge.com
+
+    ### K8S options
+
+    ## Kubectl conf file to contact the cluster
+    # config_file: /opt/share/projects/flowforge/test/config
+    # regsitry: hub.flowforge.com
+
+#################################################
+# Email Configuration                           #
+#################################################
+
+email:
+  enabled: false
+  debug: false
+  smtp:
+    host: localhost
+    port: 587
+    secure: false
+    #auth:
+    #    user: username
+    #    pass: password

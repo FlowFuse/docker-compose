@@ -1,0 +1,11 @@
+{
+    "name": "node-red-project",
+    "description": "A Node-RED Project",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies":{
+        "@flowforge/nr-storage": "^0.0.1",
+        "@flowforge/nr-auth": "^0.0.1",
+        "@flowforge/nr-audit-logger": "^0.0.1"
+    }
+}

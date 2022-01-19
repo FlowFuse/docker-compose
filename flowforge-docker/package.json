@@ -1,0 +1,13 @@
+{
+	"name": "@flowforge/docker-deployment",
+	"description": "FlowForge in Docker",
+	"author": {
+    "name": "FlowForge Inc."
+  },
+	"dependencies": {
+		"@flowforge/flowforge": "^0.0.1",
+		"@flowforge/docker": "^0.0.1",
+		"pg": "^8.7.1",
+    "pg-hstore": "^2.3.4"
+	}
+}
