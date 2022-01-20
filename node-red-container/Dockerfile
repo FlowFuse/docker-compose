@@ -1,7 +1,5 @@
 FROM nodered/node-red:latest
 
-RUN npm config set @flowforge:registry https://npm.hardill.me.uk
-
 COPY package.json /data
 WORKDIR /data
 RUN npm install

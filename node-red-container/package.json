@@ -4,8 +4,8 @@
     "version": "0.0.1",
     "private": true,
     "dependencies":{
-        "@flowforge/nr-storage": "^0.0.1",
-        "@flowforge/nr-auth": "^0.0.1",
-        "@flowforge/nr-audit-logger": "^0.0.1"
+        "@flowforge/nr-storage": "^0.1.0",
+        "@flowforge/nr-auth": "^0.1.0",
+        "@flowforge/nr-audit-logger": "^0.1.0"
     }
 }

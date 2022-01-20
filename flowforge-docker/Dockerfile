@@ -1,7 +1,5 @@
 FROM node:16-alpine
 
-RUN npm config set @flowforge:registry https://npm.hardill.me.uk
-
 RUN apk add --no-cache --virtual build-base g++ make py3-pip sqlite-dev python2
 
 WORKDIR /usr/src/forge
