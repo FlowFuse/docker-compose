@@ -1,6 +1,7 @@
 {
 	"name": "@flowforge/docker-deployment",
 	"description": "FlowForge in Docker",
+	"private": true,
 	"author": {
     "name": "FlowForge Inc."
   },
@@ -9,5 +10,8 @@
 		"@flowforge/docker": "^0.1.0",
 		"pg": "^8.7.1",
     "pg-hstore": "^2.3.4"
-	}
+	},
+	"engines": {
+    "node": ">16.10.0"
+  }
 }
