@@ -28,3 +28,5 @@ To access the Projects created you will need to set up a wildcard DNS entry that
 e.g. assuming that Docker is running on a machine with IP address `192.168.0.8` then an A record point to  `*.example.com`
 
 This  will mean that any host at `example.com` will resolve to the `192.168.0.8`
+
+**Note** When testing locally you can not use the loopback `127.0.0.1` for this, e.g. in the `/etc/hosts` file, as this will resolve to the TCP/IP stack inside each container
