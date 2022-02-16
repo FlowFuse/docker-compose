@@ -1,4 +1,5 @@
 port: 3000
+host: 0.0.0.0
 domain: example.com
 base_url: http://forge.example.com
 api_url: http://forge:3000
