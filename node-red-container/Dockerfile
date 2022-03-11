@@ -1,5 +1,8 @@
 FROM nodered/node-red:latest
 
+ARG REGISTRY
+RUN if [[ ! -z "$REGISTRY" ]] ; then npm config set @flowforge:registry "$REGISTRY"; fi
+
 COPY package.json /data
 WORKDIR /data
 RUN npm install
