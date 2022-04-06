@@ -19,4 +19,4 @@ ENV NODE_PATH=/usr/src/node-red
 
 EXPOSE 2880
 
-ENTRYPOINT ["./node_modules/.bin/flowforge-node-red", "-p", "2880"]
+ENTRYPOINT ["./node_modules/.bin/flowforge-node-red", "-p", "2880", "-n", "/usr/src/node-red"]

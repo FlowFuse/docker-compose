@@ -13,6 +13,15 @@ RUN npm install --production --no-audit --no-fund
 
 ENV FLOWFORGE_HOME=/usr/src/forge
 
+LABEL org.label-schema.name="Flowforge Docker" \
+    org.label-schema.url="https://flowforge.com" \
+    org.label-schema.vcs-type="Git" \
+    org.label-schema.vcs-url="https://github.com/flowforge/docker-compose" \
+    org.label-schema.docker.dockerfile="flowforge-docker/Dockerfile" \
+    org.schema-label.description="Collaborative, low code integration and automation environment" \
+    authors="Flowforge Inc."
+
+
 EXPOSE 3000
 
 CMD ["./node_modules/.bin/flowforge"]
