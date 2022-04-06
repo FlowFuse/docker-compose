@@ -1,0 +1,41 @@
+version: "3.3"
+services:
+  nginx:
+    image: jwilder/nginx-proxy
+    networks:
+      - flowforge 
+    restart: always
+    volumes:
+      - "/var/run/docker.sock:/tmp/docker.sock:ro"
+    ports:
+      - "80:80"
+      # - "443:443"
+  postgres:
+    image: postgres
+    networks: 
+      - flowforge
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: secret
+      POSTGRES_USER: root
+    volumes:
+      - "./db:/var/lib/postgresql/data"
+      - "./setup-db.sh:/docker-entrypoint-initdb.d/setup-db.sh"
+
+  forge:
+    build:
+      context: "./flowforge-docker-local-dev/"
+    networks: 
+      - flowforge
+    restart: always
+    environment:
+      - "VIRTUAL_HOST=forge.example.com"
+    volumes:
+      - "/var/run/docker.sock:/tmp/docker.sock"
+      - "../:/data"
+    depends_on:
+      - "postgres"
+      - "nginx"
+
+networks:
+  flowforge:

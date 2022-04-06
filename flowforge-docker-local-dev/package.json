@@ -1,0 +1,18 @@
+{
+    "name": "@flowforge/docker-local-dev",
+    "description": "FlowForge in Docker",
+    "version": "0.3.0",
+    "private": true,
+    "author": {
+        "name": "FlowForge Inc."
+    },
+    "dependencies": {
+        "@flowforge/flowforge": "file:/data/flowforge",
+        "@flowforge/docker": "file:/data/flowforge-driver-docker",
+        "pg": "^8.7.1",
+        "pg-hstore": "^2.3.4"
+    },
+    "engines": {
+        "node": ">=16.x"
+    }
+}
