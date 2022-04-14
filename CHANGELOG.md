@@ -1,3 +1,10 @@
+#### 0.4.0: Release
+
+ - Update project automation (#12) @knolleary
+ - Fix node red path (#11) @hardillb
+ - Remove local build script (#9) @hardillb
+ - Add dev mode compose file (#10) @knolleary
+
 #### 0.3.0: Release
 
  - Add optional npm registy (#7) @hardillb
