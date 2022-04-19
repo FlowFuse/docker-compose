@@ -41,6 +41,14 @@ This is a basic Node-RED image with the FlowForge Lanucher and the required Node
 
 This is the container you can customise for your deployment.
 
+## Configuration
+
+Configuration details are stored in the `etc/flowforge.yml` file which is mapped into the `flowforge/forge-docker` container. You will need to edit this file to update the `domain` and `base_url` entries to match the DNS settings.
+
+You also need to update the `VIRTUAL_HOST` entry in the `docker-compose.yml` file to use the same domain as in the `etc/flowforge.yml` file.
+
+You should also update the `email` section to point to a local SMTP server so you can invite users to join teams. 
+
 ### Creating Instance
 
 Once the container have been built you can start the FlowForge by running:
@@ -50,13 +58,6 @@ docker-compose up -d
 ```
 
 This will also create a directory called `db` to hold the database files used to store project instance and user information.
-
-## Configuration
-
-Configuration details are stored in the `etc/flowforge.yml` file which is mapped into the `flowforge/forge-docker` container. You will need to edit this file to update the `domain` and `base_url` entries to match the DNS settings.
-
-You should also update the `email` section to point to a local SMTP server so you can invite users to join teams.
-
 
 # Development Mode
 
