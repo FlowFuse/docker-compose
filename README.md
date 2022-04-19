@@ -57,15 +57,7 @@ Once the container have been built you can start the FlowForge by running:
 docker-compose up -d
 ```
 
-<<<<<<< HEAD
 This will also create a directory called `db` to hold the database files used to store project instance and user information.
-
-## Configuration
-
-Configuration details are stored in the `etc/flowforge.yml` file which is mapped into the `flowforge/forge-docker` container. You will need to edit this file to update the `domain` and `base_url` entries to match the DNS settings.
-
-You should also update the `email` section to point to a local SMTP server so you can invite users to join teams.
-
 
 # Development Mode
 
@@ -119,6 +111,3 @@ other - including this repository.
   it will automatically rebuild/restart whenever source code changes are made.
 
   
-=======
-This will also create a directory called `db` to hold the database files used to store project instance and user information.
->>>>>>> 00226df (Add doc about updating VIRTUAL_HOST)
