@@ -1,3 +1,6 @@
+#### 0.5.0: Release
+
+
 #### 0.4.0: Release
 
  - Update project automation (#12) @knolleary
