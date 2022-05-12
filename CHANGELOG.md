@@ -1,3 +1,7 @@
+#### 0.5.0: Release
+
+ - Fix virtual host (#14) @hardillb
+
 #### 0.4.0: Release
 
  - Update project automation (#12) @knolleary
