@@ -1,0 +1,10 @@
+{
+  "name": "flowforge-dev-env",
+  "private": true,
+  "version": "1.0.0",
+  "description": "A meta repo to create a working FlowForge development environment",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "workspaces": ["./packages/*"]
+}
