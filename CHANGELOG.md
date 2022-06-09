@@ -1,3 +1,6 @@
+#### 0.6.0: Release
+
+
 #### 0.5.0: Release
 
  - Fix virtual host (#14) @hardillb
