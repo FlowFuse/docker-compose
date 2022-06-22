@@ -3,6 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "description": "A meta repo to create a working FlowForge development environment",
+  "license": "Apache-2.0 ",
   "scripts": {
     "init": "node scripts/ff-dev-env.js init",
     "status": "node scripts/ff-dev-env.js status"
