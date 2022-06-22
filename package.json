@@ -5,8 +5,8 @@
   "description": "A meta repo to create a working FlowForge development environment",
   "license": "Apache-2.0 ",
   "scripts": {
-    "init": "node scripts/ff-dev-env.js init",
-    "status": "node scripts/ff-dev-env.js status"
+    "init": "node lib/ff-dev-env.js init",
+    "status": "node lib/ff-dev-env.js status"
   },
   "workspaces": [
     "./packages/*"
