@@ -3,7 +3,8 @@ FROM node:16-alpine
 ARG REGISTRY
 RUN if [[ ! -z "$REGISTRY" ]] ; then npm config set @flowforge:registry "$REGISTRY"; fi
 
-RUN apk add --no-cache --virtual build-base g++ make py3-pip sqlite-dev python2
+RUN apk add --no-cache --virtual build-base g++ make py3-pip sqlite-dev python3
+RUN ln -s `which python3` /usr/bin/python
 
 WORKDIR /usr/src/forge
 RUN mkdir app bin etc var
