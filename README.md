@@ -14,7 +14,8 @@ environment.
       
    This will install the immediate dependencies of the development environment,
    clone all of the required repositories under the `packages` directory then install
-   all of the dependencies of those repositories.
+   all of the dependencies of those repositories. It will then run `npm run build`
+   on any of the repositories that require it.
 
 You can now start developing the code normally in the directories under `packages`.
 
@@ -43,6 +44,22 @@ flowforge-dev-env
         └── ...
 
 ```
+
+### Running FlowForge
+
+After running `npm run init`, you will be able to start FlowForge with its default
+configuration by running:
+
+    cd packages/flowforge
+    npm run start
+
+To run in development mode, where it automatically rebuilds the frontend and restarts
+the application when changes are made, run:
+
+    cd packages/flowforge
+    npm run serve
+
+More details on how to develop FlowForge itself are provided in the [main docs](https://github.com/flowforge/flowforge/tree/main/docs/contribute).
 
 ### Changing a repos dependencies
 
