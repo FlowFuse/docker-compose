@@ -1,3 +1,7 @@
+#### 0.7.1: Maintenance Release
+
+ - Add FF Theme to node-red contaier (#25) @hardillb
+
 #### 0.7.0: Release
 
  - Fix Python for sqlite (#20) @hardillb

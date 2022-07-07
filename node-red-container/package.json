@@ -1,7 +1,7 @@
 {
     "name": "node-red-project",
     "description": "A Node-RED Project",
-    "version": "0.7.0",
+    "version": "0.7.1",
     "private": true,
     "dependencies": {
         "@flowforge/nr-storage": "^0.7.0",
