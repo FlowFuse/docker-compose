@@ -6,6 +6,7 @@
     "dependencies": {
         "@flowforge/nr-storage": "^0.7.0",
         "@flowforge/nr-auth": "^0.7.0",
-        "@flowforge/nr-audit-logger": "^0.7.0"
+        "@flowforge/nr-audit-logger": "^0.7.0",
+        "@flowforge/nr-theme": "^0.1.1"
     }
 }
