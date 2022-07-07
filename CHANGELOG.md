@@ -1,3 +1,7 @@
+#### 0.7.0: Release
+
+ - Fix Python for sqlite (#20) @hardillb
+
 #### 0.6.0: Release
 
 
