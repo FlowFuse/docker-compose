@@ -29,11 +29,13 @@ services:
     # ports:
     #   - "1883:1883"
     #   - "1884:1884"
+    ulimits:
+      nofile: 2048
     environment:
       - "VIRTUAL_HOST=mqtt.example.com"
       - "VIRTUAL_PORT=1884"
     volumes:
-      - "./broker/mosquitto.conf:/etc/mosquitto.conf"
+      - "./broker/mosquitto.conf:/etc/mosquitto/mosquitto.conf"
   forge:
     build:
       context: "./flowforge-docker"
