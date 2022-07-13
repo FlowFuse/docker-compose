@@ -21,6 +21,19 @@ services:
     volumes:
       - "./db:/var/lib/postgresql/data"
       - "./setup-db.sh:/docker-entrypoint-initdb.d/setup-db.sh"
+  flowforge-broker:
+    image: "iegomez/mosquitto-go-auth"
+    networks:
+      - flowforge
+    restart: always
+    # ports:
+    #   - "1883:1883"
+    #   - "1884:1884"
+    environment:
+      - "VIRTUAL_HOST=mqtt.example.com"
+      - "VIRTUAL_PORT=1884"
+    volumes:
+      - "./broker/mosquitto.conf:/etc/mosquitto.conf"
   forge:
     build:
       context: "./flowforge-docker"
@@ -36,6 +49,7 @@ services:
     depends_on:
       - "postgres"
       - "nginx"
+      - "flowforge-broker"
 
 networks:
   flowforge:
