@@ -73,3 +73,4 @@ email:
 
 broker:
   url: mqtt://flowforge-broker:1883
+  public_url: ws://mqtt.example.com

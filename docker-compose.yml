@@ -26,9 +26,6 @@ services:
     networks:
       - flowforge
     restart: always
-    # ports:
-    #   - "1883:1883"
-    #   - "1884:1884"
     ulimits:
       nofile: 2048
     environment:
