@@ -40,6 +40,20 @@ flowforge-dev-env
     │   └── ...
     ├── flowforge-nr-storage
     │   └── ...
+    ├── flowforge-nr-theme
+    │   └── ...
+    ├── flowforge-nr-project-nodes
+    │   └── ...
+    ├── flowforge-driver-k8s
+    │   └── ...
+    ├── flowforge-driver-docker
+    │   └── ...
+    ├── installer
+    │   └── ...
+    ├── helm
+    │   └── ...
+    ├── docker-compose
+    │   └── ...
     └── forge-ui-components
         └── ...
 
@@ -94,6 +108,13 @@ Package git status
  + flowforge-nr-auth (main)
  + flowforge-nr-launcher (main)
  + flowforge-nr-storage (main)
+ + flowforge-nr-theme (main)
+ + flowforge-nr-project-nodes (main)
+ + flowforge-driver-k8s (main)
+ + flowforge-driver-docker (main)
+ + installer (main)
+ + helm (main)
+ + docker-compose (main)
 ```
 
 This tells you the branch of each repository and whether it has unstaged (`*`) and
@@ -106,10 +127,25 @@ The FlowForge platform consists of a number of npm modules. Each module is maint
 in its own git repository. When developing the code and you need to make changes
 across multiple modules, you want to be sure the your development code is loaded.
 
-We used to achive that by running a script that modified the package.json of which
+We used to achieve that by running a script that modified the package.json of which
 module to point to a relative location. That left the package.json file modified
-and would get in the way when commiting and merging changes.
+and would get in the way when committing and merging changes.
 
 Thankfully, npm workspaces solves that particular problem. Whilst it is more
 often used in monorepos, this repo provides the setup required to get them working
 with our multiple repositories.
+
+
+## Other terminal tips
+
+From the `packages` directory...
+
+### Status of each repo
+```
+find . -name .git -type d -execdir git status \;
+```
+
+### Pull latest for each repo
+```
+find . -name .git -type d -execdir git pull \;
+```
