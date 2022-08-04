@@ -1,3 +1,10 @@
+#### 0.8.0: Release
+
+ - Fix broker comms http auth path (#27) @hardillb
+ - add dep @flowforge/nr-project-nodes (#26) @Steve-Mcl
+ - First pass of adding broker (#24) @hardillb
+ - Add theme to NR container (#22) @hardillb
+
 #### 0.7.0: Release
 
  - Fix Python for sqlite (#20) @hardillb
