@@ -111,3 +111,8 @@ other - including this repository.
   it will automatically rebuild/restart whenever source code changes are made.
 
   
+
+
+### Infrastructure model
+
+![Infrastructure model](.infragenie/infrastructure_model.png)
