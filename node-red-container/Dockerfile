@@ -2,6 +2,7 @@ FROM nodered/node-red:latest
 
 ARG REGISTRY
 ARG REGISTRY_TOKEN
+ARG BUILD_TAG=latest
 RUN if [[ ! -z "$REGISTRY_TOKEN" ]]; then echo "//$REGISTRY/:_authtoken=$REGISTRY_TOKEN" >> ~/.npmrc ; fi
 RUN if [[ ! -z "$REGISTRY" ]] ; then npm config set @flowforge:registry "https://$REGISTRY"; fi
 
@@ -15,7 +16,7 @@ WORKDIR /usr/src/flowforge-nr-launcher
 RUN chown node-red:node-red /data/* /usr/src/flowforge-nr-launcher
 
 USER node-red
-RUN npm install @flowforge/nr-launcher
+RUN npm install @flowforge/nr-launcher@${BUILD_TAG}
 
 ENV NODE_PATH=/usr/src/node-red
 
