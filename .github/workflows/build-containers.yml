@@ -34,5 +34,5 @@ jobs:
           context: docker-compose/flowforge-container
           file: docker-compose/flowforge-contianer/Dockerfile
           platforms: linux/amd64, linux/arm64
-          tags: ${{ steps.meta.output.tags }}
+          tags: ${{ steps.meta.outputs.tags }}
           push: true
