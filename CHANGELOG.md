@@ -1,3 +1,10 @@
+#### 0.10.0: Release
+
+ - Fix case in npm authToken (#37) @hardillb
+ - Set default python location for npm (#36) @hardillb
+ - Add build tag when installing nr-launcher (#35) @hardillb
+ - First pass at GH Action to build docker-compose app container (#33) @hardillb
+
 #### 0.9.0: Release
 
 
