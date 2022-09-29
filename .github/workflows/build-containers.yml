@@ -12,6 +12,7 @@ jobs:
           repository: 'flowforge/docker-compose'
           path: 'docker-compose'
       - name: Docker Meta Data
+        id: meta
         uses: docker/metadata-action@v3
         with:
           tags: |
@@ -33,4 +34,5 @@ jobs:
           context: docker-compose/flowforge-container
           file: docker-compose/flowforge-contianer/Dockerfile
           platforms: linux/amd64, linux/arm64
+          tags: ${{ steps.meta.outputs.tags }}
           push: true
