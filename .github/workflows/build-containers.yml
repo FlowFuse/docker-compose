@@ -36,3 +36,9 @@ jobs:
           platforms: linux/amd64, linux/arm64
           tags: ${{ steps.meta.outputs.tags }}
           push: true
+      - name: Push README
+        uses: peter-evans/dockerhub-description@v3
+        with:
+          repository: flowforge/forge-docker
+          username: flowforge
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
