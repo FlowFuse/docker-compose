@@ -18,7 +18,7 @@ services:
   # acme:
   #   image: nginxproxy/acme-companion
   #   volumes:
-  #     - "/var/run/docker.sock:/tmp/docker.sock:ro"
+  #     - "/var/run/docker.sock:/var/run/docker.sock:ro"
   #     - "./acme:/etc/acme.sh"
   #   volumes_from:
   #     - nginx:rw
