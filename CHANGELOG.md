@@ -1,3 +1,7 @@
+#### 0.10.1: Maintenance Release
+
+ - Pin to Postgre 14 (#44) @hardillb
+
 #### 0.10.0: Release
 
  - Fix case in npm authToken (#37) @hardillb
