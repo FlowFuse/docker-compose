@@ -1,3 +1,9 @@
+#### 1.0.0: Release
+
+ - Remove FlowForge nodes from /data/package.json (#46) @hardillb
+ - Pin to Postgres 14 (#44) @hardillb
+ - Add step to the build action to push README.md (#41) @hardillb
+
 #### 0.10.0: Release
 
  - Fix case in npm authToken (#37) @hardillb
