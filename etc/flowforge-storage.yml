@@ -1,0 +1,7 @@
+port: 3001
+host: 0.0.0.0
+base_url: http://forge:3000
+driver:
+  type: localfs
+  options:
+    root: var/root
