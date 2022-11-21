@@ -6,7 +6,8 @@
   "license": "Apache-2.0 ",
   "scripts": {
     "init": "node lib/ff-dev-env.js init",
-    "status": "node lib/ff-dev-env.js status"
+    "status": "node lib/ff-dev-env.js status",
+    "update": "node lib/ff-dev-env.js update"
   },
   "workspaces": [
     "./packages/*"
