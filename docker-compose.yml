@@ -1,15 +1,31 @@
 version: "3.3"
 services:
   nginx:
-    image: jwilder/nginx-proxy
+    image: nginxproxy/nginx-proxy
     networks:
       - flowforge 
     restart: always
     volumes:
       - "/var/run/docker.sock:/tmp/docker.sock:ro"
+      - "./nginx/vhost.d:/etc/nginx/vhost.d"
+      - "./nginx/html:/usr/share/nginx/html"
+      # - "./certs:/etc/nginx/certs"
     ports:
       - "80:80"
       # - "443:443"
+    # environment:
+      # - "HTTPS_METHOD=redirect"
+  # acme:
+  #   image: nginxproxy/acme-companion
+  #   volumes:
+  #     - "/var/run/docker.sock:/var/run/docker.sock:ro"
+  #     - "./acme:/etc/acme.sh"
+  #   volumes_from:
+  #     - nginx:rw
+  #   environment:
+  #     - "DEFAULT_EMAIL=mail@example.com"
+  #   depends_on:
+  #     - "nginx"
   postgres:
     image: postgres:14
     networks: 
@@ -31,6 +47,7 @@ services:
     environment:
       - "VIRTUAL_HOST=mqtt.example.com"
       - "VIRTUAL_PORT=1884"
+      - "LETSENCRYPT_HOST=mqtt.example.com"
     volumes:
       - "./broker/mosquitto.conf:/etc/mosquitto/mosquitto.conf"
   forge:
@@ -42,6 +59,7 @@ services:
     restart: always
     environment:
       - "VIRTUAL_HOST=forge.example.com"
+      - "LETSENCRYPT_HOST=forge.example.com"
     volumes:
       - "/var/run/docker.sock:/tmp/docker.sock"
       - "./etc/flowforge.yml:/usr/src/forge/etc/flowforge.yml"
