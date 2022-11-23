@@ -68,5 +68,16 @@ services:
       - "nginx"
       - "flowforge-broker"
 
+  file-server:
+    image: "flowforge/file-server"
+    networks:
+      - flowforge
+    restart: always
+    volumes:
+      - "./etc/flowforge-storage.yml:/usr/src/flowforge-file-storage/etc/flowforge-storage.yml"
+      - "./fileStorage:/usr/src/flowforge-file-storage/var/root"
+    depends_on:
+      - "forge"
+
 networks:
   flowforge:
