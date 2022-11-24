@@ -1,3 +1,9 @@
+#### 1.1.0: Release
+
+ - Setup File Server (#51) @hardillb
+ - First pass adding LetsEncrypt support (#42) @hardillb
+ - Fix path to README.md for docker hub publish (#50) @hardillb
+
 #### 1.0.1: Release
 
  - Update to FlowForge 1.0.1
