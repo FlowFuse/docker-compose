@@ -69,7 +69,7 @@ services:
       - "flowforge-broker"
 
   file-server:
-    image: "flowforge/file-server"
+    image: "flowforge/file-server:1.1.0"
     networks:
       - flowforge
     restart: always
