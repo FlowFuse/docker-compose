@@ -29,7 +29,7 @@ This  will mean that any host at `example.com` will resolve to the `192.168.0.8`
 
 To build the 2 required containers simply run `./build-containers.sh`.
 
-This will build and tag both `flowforge/forge-docker` and `flowforge/node-red` and `flowforge/file-server`
+This will build and tag both `flowforge/forge-docker` and `flowforge/node-red` and `flowforge/file-server`.
 
 #### flowforge/flowforge-docker
 
