@@ -57,7 +57,7 @@ services:
       - flowforge
     restart: always
     volumes:
-      - "./etc/flowforge-storage.yml:/usr/src/flowforge-file-servr/etc/flowforge-storage.yml"
+      - "./etc/flowforge-storage.yml:/usr/src/flowforge-file-server/etc/flowforge-storage.yml"
       - "./fileStorage:/usr/src/flowforge-file-server/var/root"
     depends_on:
       - "forge"
