@@ -22,6 +22,19 @@ services:
       - "./db:/var/lib/postgresql/data"
       - "./setup-db.sh:/docker-entrypoint-initdb.d/setup-db.sh"
 
+  flowforge-broker:
+    image: "iegomez/mosquitto-go-auth"
+    networks:
+      - flowforge
+    restart: always
+    ulimits:
+      nofile: 2048
+    environment:
+      - "VIRTUAL_HOST=mqtt.example.com"
+      - "VIRTUAL_PORT=1884"
+      - "LETSENCRYPT_HOST=mqtt.example.com"
+    volumes:
+      - "./broker/mosquitto.conf:/etc/mosquitto/mosquitto.conf"
   forge:
     build:
       context: "./flowforge-docker-local-dev/"
@@ -36,6 +49,18 @@ services:
     depends_on:
       - "postgres"
       - "nginx"
+  file-server:
+    build:
+      context: "./file-server"
+    image: "flowforge/file-server"
+    networks:
+      - flowforge
+    restart: always
+    volumes:
+      - "./etc/flowforge-storage.yml:/usr/src/flowforge-file-storage/etc/flowforge-storage.yml"
+      - "./fileStorage:/usr/src/flowforge-file-storage/var/root"
+    depends_on:
+      - "forge"
 
 networks:
   flowforge:

@@ -29,7 +29,7 @@ This  will mean that any host at `example.com` will resolve to the `192.168.0.8`
 
 To build the 2 required containers simply run `./build-containers.sh`.
 
-This will build and tag both `flowforge/forge-docker` and `flowforge/node-red`
+This will build and tag both `flowforge/forge-docker` and `flowforge/node-red` and `flowforge/file-server`
 
 #### flowforge/flowforge-docker
 
@@ -40,6 +40,10 @@ This container holds the FlowForge App and the Docker Driver
 This is a basic Node-RED image with the FlowForge Lanucher and the required Node-RED plugins to talk to the FlowForge Platform.
 
 This is the container you can customise for your deployment.
+
+#### flowforge/file-server
+
+This holds the Object Store used to allow persistent file storage for Projects running on Docker
 
 ## Configuration
 
@@ -54,7 +58,7 @@ You should also update the `email` section to point to a local SMTP server so yo
 Once the container have been built you can start the FlowForge by running:
 
 ```
-docker-compose up -d
+docker-compose -p flowforge up -d
 ```
 
 This will also create a directory called `db` to hold the database files used to store project instance and user information.
