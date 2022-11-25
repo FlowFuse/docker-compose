@@ -17,6 +17,8 @@ jobs:
         with:
           tags: |
             type=semver,event=tag,pattern={{version}}
+          flavor: |
+            latest=true
           images: |
             flowforge/forge-docker
       - name: Setup QEMU
@@ -33,7 +35,7 @@ jobs:
         with:
           context: docker-compose/flowforge-docker
           file: docker-compose/flowforge-docker/Dockerfile
-          platforms: linux/amd64, linux/arm64
+          platforms: linux/amd64, linux/arm64, linux/arm/v7
           tags: ${{ steps.meta.outputs.tags }}
           push: true
       - name: Push README
