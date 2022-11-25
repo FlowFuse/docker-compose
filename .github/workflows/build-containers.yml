@@ -17,6 +17,8 @@ jobs:
         with:
           tags: |
             type=semver,event=tag,pattern={{version}}
+          flavor: |
+            latest=true
           images: |
             flowforge/forge-docker
       - name: Setup QEMU
