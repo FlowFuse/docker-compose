@@ -37,9 +37,9 @@ This container holds the FlowForge App and the Docker Driver
 
 #### flowforge/node-red
 
-This is a basic Node-RED image with the FlowForge Lanucher and the required Node-RED plugins to talk to the FlowForge Platform.
+This is a basic Node-RED image with the FlowForge Launcher and the required Node-RED plugins to talk to the FlowForge Platform.
 
-This is the container you can customise for your deployment.
+This is the container you can customize for your deployment.
 
 #### flowforge/file-server
 
@@ -98,7 +98,7 @@ other - including this repository.
 6. Depending on what OS you are running on, the core project has one binary
   dependency that needs to be rebuilt for it to work inside Docker - `bcrypt`.
   The super hacky way to get that to work is to edit `flowforge/package.json` and
-  modifiy the `serve` task to first reinstall that module:
+  modify the `serve` task to first reinstall that module:
   ```
   "serve": "npm uninstall bcrypt && npm install bcrypt && npm-run-all --parallel build-watch start-watch"
   ```
