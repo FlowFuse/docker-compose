@@ -17,11 +17,11 @@ These instructions assume you are running Docker on a Linux or MacOS host system
 
 To access the Projects created you will need to set up a wildcard DNS entry that points to the `domain` entered in the `etc/flowforge.yml` file.
 
-e.g. assuming that Docker is running on a machine with IP address `192.168.0.8` then an A record point to  `*.example.com`
+e.g. assuming that Docker is running on a machine with IP address `192.168.0.8` then an A record point to  `*.example.com`.
 
-This  will mean that any host at `example.com` will resolve to the `192.168.0.8`
+This  will mean that any host at `example.com` will resolve to the `192.168.0.8`.
 
-**Note** When testing locally you can not use the loopback address `127.0.0.1` for this, e.g. in the `/etc/hosts` file, as this will resolve to the TCP/IP stack inside each container
+**Note** When testing locally you can not use the loopback address `127.0.0.1` for this, e.g. in the `/etc/hosts` file, as this will resolve to the TCP/IP stack inside each container.
 
 ## Installing FlowForge
 
@@ -33,7 +33,7 @@ This will build and tag both `flowforge/forge-docker` and `flowforge/node-red` a
 
 #### flowforge/flowforge-docker
 
-This container holds the FlowForge App and the Docker Driver
+This container holds the FlowForge App and the Docker Driver.
 
 #### flowforge/node-red
 
@@ -70,15 +70,15 @@ This will also create a directory called `db` to hold the database files used to
 If you are actively developing FlowForge, the following instructions can be used
 to run it with the Docker driver using a locally mounted source tree.
 
-1. Ensure you have all of the FlowForge source repositories checked out next to each
+1. Ensure that you have all of the FlowForge source repositories checked out next to each
 other - including this repository.
 
-2. Run `npm install` in each repository that has a package.json file
+2. Run `npm install` in each repository that has a package.json file.
 
 3. In the `flowforge` repo, run `npm run dev:local` to setup proper dev symlinks
    between the repos.
 
-4. Follow the instructions above to setup DNS
+4. Follow the instructions above to setup DNS.
 
 5. Edit the `etc/flowforge.yml` file in the `flowforge` repository to use the docker driver:
   ```
@@ -105,7 +105,7 @@ other - including this repository.
   You only need to do this the first time you run under docker - you can then revert
   that change for the subsequent runs.
 
-  **Note** you will need to reinstall the module when you go back to running outside
+  **Note:** You will need to reinstall the module when you go back to running outside
   of docker.
 
 7. Start the platform with: `docker-compose -f docker-compose-local-dev.yml up --build` 
