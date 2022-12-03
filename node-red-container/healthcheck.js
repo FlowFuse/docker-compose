@@ -10,7 +10,7 @@ var options = {
     timeout : 4000
 };
 
-request = https.request(options, (res) => {
+request = http.request(options, (res) => {
     //console.log(`STATUS: ${res.statusCode}`);
     if ((res.statusCode >= 200) && (res.statusCode < 500)) { process.exit(0); }
     else { process.exit(1); }
