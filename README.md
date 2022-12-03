@@ -47,11 +47,11 @@ This holds the Object Store used to allow persistent file storage for Projects r
 
 ## Configuration
 
-Configuration details are stored in the `etc/flowforge.yml` file which is mapped into the `flowforge/forge-docker` container. You will need to edit this file to update the `domain` and `base_url` entries to match the DNS settings.
-
-You also need to update the `VIRTUAL_HOST` entry in the `docker-compose.yml` file to use the same domain as in the `etc/flowforge.yml` file.
+Configuration details are stored in the `etc/flowforge.yml`. You will need to edit this file to update the `domain` and `base_url` entries to match your DNS settings.
 
 You should also update the `email` section to point to a local SMTP server so you can invite users to join teams. 
+
+You also need to update the `DOMAIN` entry in the `./env` file to use the same domain as in the `etc/flowforge.yml` file.
 
 ### Creating Instance
 

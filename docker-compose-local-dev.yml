@@ -30,9 +30,9 @@ services:
     ulimits:
       nofile: 2048
     environment:
-      - "VIRTUAL_HOST=mqtt.example.com"
+      - "VIRTUAL_HOST=mqtt.${DOMAIN}"
       - "VIRTUAL_PORT=1884"
-      - "LETSENCRYPT_HOST=mqtt.example.com"
+      - "LETSENCRYPT_HOST=mqtt.${DOMAIN}"
     volumes:
       - "./broker/mosquitto.conf:/etc/mosquitto/mosquitto.conf"
   forge:
@@ -42,7 +42,8 @@ services:
       - flowforge
     restart: always
     environment:
-      - "VIRTUAL_HOST=forge.example.com"
+      - "VIRTUAL_HOST=forge.${DOMAIN}"
+      - "LETSENCRYPT_HOST=forge.${DOMAIN}"
     volumes:
       - "/var/run/docker.sock:/tmp/docker.sock"
       - "../:/data"
