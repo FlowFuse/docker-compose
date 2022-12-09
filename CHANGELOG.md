@@ -1,3 +1,7 @@
+#### 1.1.2
+
+ - Update to FlowForge 1.1.2
+ 
 #### 1.1.0: Release
 
  - Setup File Server (#51) @hardillb
