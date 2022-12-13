@@ -5,3 +5,11 @@ driver:
   type: localfs
   options:
     root: var/root
+context:
+  type: sequelize
+  options:
+    type: postgres
+    host: postgres
+    database: ff-context
+    user: forge
+    password: secret

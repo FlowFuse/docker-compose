@@ -63,6 +63,16 @@ docker-compose -p flowforge up -d
 
 This will also create a directory called `db` to hold the database files used to store project instance and user information.
 
+# Upgrading
+
+If upgrading from version before version 1.2.0 you will need to manually create the database for the persistent context store.
+
+To do this you will need to run the following command after starting:
+
+```
+docker exec -it flowforge_postgres_1 /docker-entrypoint-initdb.d/setup-context-db.sh
+```
+
 # Development Mode
 
 **This is experimental**
