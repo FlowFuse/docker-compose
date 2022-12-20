@@ -3,10 +3,12 @@ host: 0.0.0.0
 base_url: http://forge:3000
 driver:
   type: localfs
+  quota: 104857600
   options:
     root: var/root
 context:
   type: sequelize
+  quota: 1048576
   options:
     type: postgres
     host: postgres
