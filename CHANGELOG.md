@@ -1,3 +1,9 @@
+#### 1.2.0: Release
+
+ - Set quota defaults (#70) @hardillb
+ - Add Context store to docker compose (#66) @hardillb
+ - No need to symlink python anymore (#67) @hardillb
+
 #### 1.1.0: Release
 
  - Setup File Server (#51) @hardillb
