@@ -13,5 +13,5 @@ context:
     type: postgres
     host: postgres
     database: ff-context
-    user: forge
+    username: forge
     password: secret
