@@ -1,3 +1,7 @@
+#### 1.2.1: Release
+
+ - Update to FlowForge 1.2.1
+
 #### 1.2.0: Release
 
  - Set quota defaults (#70) @hardillb
