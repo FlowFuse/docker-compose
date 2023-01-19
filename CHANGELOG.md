@@ -1,3 +1,8 @@
+#### 1.3.0: Release
+
+ - Only create DB if it doesn't exist (#75) @hardillb
+ - Ensure DB setup scripts run in the correct order (#74) @hardillb
+
 #### 1.2.0: Release
 
  - Set quota defaults (#70) @hardillb
