@@ -1,14 +1,14 @@
 {
     "name": "@flowforge/docker-deployment",
     "description": "FlowForge in Docker",
-    "version": "1.3.0",
+    "version": "1.4.0",
     "private": true,
     "author": {
         "name": "FlowForge Inc."
     },
     "dependencies": {
-        "@flowforge/flowforge": "^1.3.0",
-        "@flowforge/docker": "^1.3.0",
+        "@flowforge/flowforge": "^1.4.0",
+        "@flowforge/docker": "^1.4.0",
         "pg": "^8.7.1",
         "pg-hstore": "^2.3.4"
     },

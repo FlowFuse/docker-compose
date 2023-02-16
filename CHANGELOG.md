@@ -1,3 +1,6 @@
+#### 1.4.0: Release
+
+
 #### 1.3.0: Release
 
  - Only create DB if it doesn't exist (#75) @hardillb
