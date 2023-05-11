@@ -1,3 +1,7 @@
+#### 1.7.0: Release
+
+ - Update file-server version (#82) @hardillb
+
 #### 1.6.0: Release
 
 
