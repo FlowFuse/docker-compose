@@ -7,7 +7,7 @@
         "name": "FlowForge Inc."
     },
     "dependencies": {
-        "@flowforge/flowforge": "^1.7.0",
+        "@flowforge/flowforge": "^1.7.1",
         "@flowforge/docker": "^1.7.0",
         "pg": "^8.7.1",
         "pg-hstore": "^2.3.4"
