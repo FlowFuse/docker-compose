@@ -1,6 +1,6 @@
 {
     "name": "@flowforge/file-server-container",
-    "version": "1.7.0",
+    "version": "1.7.1",
     "private": true,
     "dependencies": {
         "@flowforge/file-server": "^1.7.0"
