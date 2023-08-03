@@ -1,3 +1,7 @@
+#### 1.10.0: Release
+
+ - Add config to set max body size (#93) @hardillb
+
 #### 1.9.0: Release
 
 
