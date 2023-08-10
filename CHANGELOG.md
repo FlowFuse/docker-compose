@@ -1,3 +1,7 @@
+#### 1.10.1: Release
+
+ - Bump to FlowForge v1.10.1
+
 #### 1.10.0: Release
 
  - Add config to set max body size (#93) @hardillb
