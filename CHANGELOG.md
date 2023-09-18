@@ -1,5 +1,7 @@
-#### 1.11.0: Release
+#### 1.11.3: Release
 
+ - Bump to FlowFuse v1.11.3
+#### 1.11.0: Release
 
 #### 1.10.1: Release
 
