@@ -45,4 +45,10 @@ jobs:
           username: flowforge
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
           readme-filepath: docker-compose/README.md
-          
+      - name: Resync Maintenance
+        if: ${{ endsWith(github.ref, '.0') }}
+        run: |
+          cd docker-compose
+          git checkout maintenance
+          git reset --hard origin/main
+          git push --force origin maintenance
