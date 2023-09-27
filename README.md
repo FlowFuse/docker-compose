@@ -1,14 +1,16 @@
-# FlowForge Docker Compose
+# FlowFuse Docker Compose
 
-An example Docker Compose project to run FlowForge
+An example Docker Compose project to run FlowFuse
 
 ## Prerequisites
 
 ### Docker Compose
 
-FlowForge uses Docker Compose to install and manager the required components. Instructions on how to install Docker Compose on your system can be found here:
+FlowFuse uses Docker Compose to install and manager the required components. Instructions on how to install Docker Compose on your system can be found here:
 
 [https://docs.docker.com/compose/install/](https://docs.docker.com/compose/install/)
+
+FlowFuse requires at least Docker Compose v2
 
 These instructions assume you are running Docker on a Linux or MacOS host system.
 
@@ -23,7 +25,7 @@ This  will mean that any host at `example.com` will resolve to the `192.168.0.8`
 
 **Note** When testing locally you can not use the loopback address `127.0.0.1` for this, e.g. in the `/etc/hosts` file, as this will resolve to the TCP/IP stack inside each container.
 
-## Installing FlowForge
+## Installing FlowFuse
 
 ### Building Containers
 
@@ -33,11 +35,11 @@ This will build and tag both `flowforge/forge-docker` and `flowforge/node-red` a
 
 #### flowforge/flowforge-docker
 
-This container holds the FlowForge App and the Docker Driver.
+This container holds the FlowFuse App and the Docker Driver.
 
 #### flowforge/node-red
 
-This is a basic Node-RED image with the FlowForge Launcher and the required Node-RED plugins to talk to the FlowForge Platform.
+This is a basic Node-RED image with the FlowFuse Launcher and the required Node-RED plugins to talk to the FlowFuse Platform.
 
 This is the container you can customize for your deployment.
 
@@ -55,7 +57,7 @@ You should also update the `email` section to point to a local SMTP server so yo
 
 ### Creating Instance
 
-Once the container have been built you can start the FlowForge by running:
+Once the container have been built you can start the FlowFuse by running:
 
 ```
 docker-compose -p flowforge up -d
@@ -77,10 +79,10 @@ docker exec -it flowforge_postgres_1 /docker-entrypoint-initdb.d/setup-context-d
 
 **This is experimental**
 
-If you are actively developing FlowForge, the following instructions can be used
+If you are actively developing FlowFuse, the following instructions can be used
 to run it with the Docker driver using a locally mounted source tree.
 
-1. Ensure that you have all of the FlowForge source repositories checked out next to each
+1. Ensure that you have all of the FlowFuse source repositories checked out next to each
 other - including this repository.
 
 2. Run `npm install` in each repository that has a package.json file.
