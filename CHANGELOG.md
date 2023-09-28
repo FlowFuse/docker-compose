@@ -1,3 +1,9 @@
+#### 1.12.0: Release
+
+ - ensure acme-companion restarts on failure (#100) @hardillb
+ - Add note about docker-compose version (#99) @hardillb
+ - Add step to end of release action to reset maintenance (#98) @hardillb
+
 #### 1.11.0: Release
 
 
