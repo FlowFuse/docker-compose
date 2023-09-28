@@ -1,3 +1,7 @@
+#### 1.12.1: Release
+
+ - Bump to FlowForge v1.12.1 @hardillb
+
 #### 1.12.0: Release
 
  - ensure acme-companion restarts on failure (#100) @hardillb
