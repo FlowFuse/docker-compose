@@ -1,3 +1,7 @@
+#### 1.13:1: Release
+
+ - Bump to FlowFuse v1.12.2 @hardillb
+
 #### 1.13.0: Release
 
 
