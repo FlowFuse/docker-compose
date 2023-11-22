@@ -18,10 +18,10 @@ WORKDIR /usr/src/flowforge-nr-launcher
 RUN chown node-red:node-red /data/* /usr/src/flowforge-nr-launcher
 
 USER node-red
-RUN npm install @flowforge/nr-launcher@${BUILD_TAG}
+RUN npm install @flowfuse/nr-launcher@${BUILD_TAG}
 
 ENV NODE_PATH=/usr/src/node-red
 
 EXPOSE 2880
 
-ENTRYPOINT ["./node_modules/.bin/flowforge-node-red", "-p", "2880", "-n", "/usr/src/node-red"]
+ENTRYPOINT ["./node_modules/.bin/flowfuse-node-red", "-p", "2880", "-n", "/usr/src/node-red"]
