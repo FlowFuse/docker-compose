@@ -1,6 +1,6 @@
-# FlowForge File Server
+# FlowFuse File Server
 
-This container provides the backing for the FlowForge replacement Node-RED File nodes.
+This container provides the backing for the FlowFuse replacement Node-RED File nodes.
 
 It supports storing files either using a mounted volume or a S3 bucket
 
