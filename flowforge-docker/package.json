@@ -1,5 +1,5 @@
 {
-    "name": "@flowforge/docker-deployment",
+    "name": "@flowfuse/docker-deployment",
     "description": "FlowForge in Docker",
     "version": "1.14.0",
     "private": true,
@@ -8,7 +8,7 @@
     },
     "dependencies": {
         "@flowforge/flowforge": "^1.14.0",
-        "@flowforge/docker": "^1.14.0",
+        "@flowfuse/driver-docker": "^1.14.0",
         "pg": "^8.7.1",
         "pg-hstore": "^2.3.4"
     },
