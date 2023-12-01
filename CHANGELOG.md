@@ -1,3 +1,7 @@
+#### 1.14.1: Release
+
+ - Update file server and driver-docker npm references (#110) @knolleary
+
 #### 1.14.0: Release
 
  - Update to @flowfuse/nr-launcher (#108) @knolleary
