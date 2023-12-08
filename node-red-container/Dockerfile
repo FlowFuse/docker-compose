@@ -4,7 +4,7 @@ ARG REGISTRY
 ARG REGISTRY_TOKEN
 ARG BUILD_TAG=latest
 RUN if [[ ! -z "$REGISTRY_TOKEN" ]]; then echo "//$REGISTRY/:_authToken=$REGISTRY_TOKEN" >> ~/.npmrc ; fi
-RUN if [[ ! -z "$REGISTRY" ]] ; then npm config set @flowforge:registry "https://$REGISTRY"; fi
+RUN if [[ ! -z "$REGISTRY" ]] ; then npm config set @flowfuse:registry "https://$REGISTRY"; fi
 
 COPY healthcheck.js /healthcheck.js
 
