@@ -1,3 +1,8 @@
+#### 1.15.0: Release
+
+ - Update to new flowfuse npm scope (#113) @knolleary
+ - Update containers to NodeJS 18 base (#111) @hardillb
+
 #### 1.14.1: Release
 
  - Update file server and driver-docker npm references (#110) @knolleary
