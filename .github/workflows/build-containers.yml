@@ -22,6 +22,7 @@ jobs:
             latest=true
           images: |
             flowforge/forge-docker
+            flowfuse/forge-docker
       - name: Setup QEMU
         uses: docker/setup-qemu-action@v1
       - name: Setup Docker buildx
@@ -43,6 +44,13 @@ jobs:
         uses: peter-evans/dockerhub-description@v3
         with:
           repository: flowforge/forge-docker
+          username: flowforge
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+          readme-filepath: docker-compose/README.md
+      - name: Push README flowfuse
+        uses: peter-evans/dockerhub-description@v3
+        with:
+          repository: flowfuse/forge-docker
           username: flowforge
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
           readme-filepath: docker-compose/README.md
