@@ -51,8 +51,8 @@ jobs:
         uses: peter-evans/dockerhub-description@v3
         with:
           repository: flowfuse/forge-docker
-          username: flowforge
-          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+          username: flowfuse
+          password: ${{ secrets.DOCKER_HUB_PASSWORD_FLOWFUSE }}
           readme-filepath: docker-compose/README.md
       - name: Resync Maintenance
         if: ${{ endsWith(github.ref, '.0') }}
