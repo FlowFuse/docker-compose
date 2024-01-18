@@ -1,3 +1,7 @@
+#### 2.0.0: Release
+
+ - Push to both container names (#116) @hardillb
+
 #### 1.15.0: Release
 
  - Update to new flowfuse npm scope (#113) @knolleary
