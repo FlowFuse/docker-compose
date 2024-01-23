@@ -1,3 +1,7 @@
+#### 2.0.1: Release
+
+ - Update versions to 2.0.1 @hardillb
+
 #### 2.0.0: Release
 
  - Push to both container names (#116) @hardillb
