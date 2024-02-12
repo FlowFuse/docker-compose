@@ -84,5 +84,19 @@ services:
     depends_on:
       - "forge"
 
+  # npm:
+  #   image: "verdaccio/verdaccio:5"
+  #   networks:
+  #     - flowforge
+  #   restart: always
+  #   environment:
+  #     - "VIRTUAL_HOST=npm.example.com"
+  #     - "VIRTUAL_PORT=4873"
+  #   volumes:
+  #     - "./npm/conf:/verdaccio/conf"
+  #     - "./npm/storage:/verdaccio/storage"
+  #   depends_on:
+  #     - nginx
+
 networks:
   flowforge:

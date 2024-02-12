@@ -1,0 +1,10 @@
+storage: /verdaccio/storage
+web:
+  enabled: false
+packages:
+  '@*/*':
+    access: $all
+  '**':
+    access: $all
+log:
+  - {type: stdout, format: pretty, level: http}

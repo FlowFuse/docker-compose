@@ -54,7 +54,7 @@ driver:
 
     ## Kubectl conf file to contact the cluster
     # config_file: /opt/share/projects/flowforge/test/config
-    # regsitry: hub.flowforge.com
+    # registry: hub.flowforge.com
 
 #################################################
 # Email Configuration                           #

@@ -1,0 +1,29 @@
+{
+  "name": "populate-cache",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A list of nodes to populate offline cache",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "FlowForge Inc.",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@flowfuse/device-agent": "^2.2.0",
+    "@flowfuse/driver-docker": "^2.0.0",
+    "@flowfuse/flowfuse": "^2.0.1",
+    "@flowfuse/node-red-dashboard": "latest",
+    "@flowforge/nr-tools-plugin": "latest",
+    "nrlint": "latest",
+    "node-red-debugger": "latest",
+    "node-red-node-email": "latest",
+    "node-red-node-mysql": "latest",
+    "node-red-node-base64": "latest",
+    "node-red-contrib-postgresql": "latest",
+    "node-red-contrib-buffer-parser": "latest",
+    "node-red-contrib-influxdb": "latest",
+    "node-red-contrib-omron-fins": "latest",
+    "node-red-contrib-mcprotocol": "latest"
+  }
+}
