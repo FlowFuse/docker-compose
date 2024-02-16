@@ -56,7 +56,7 @@ services:
   forge:
     build:
       context: "./flowforge-docker"
-    image: "flowforge/forge-docker"
+    image: "flowfuse/forge-docker"
     networks: 
       - flowforge
     restart: always
@@ -74,7 +74,7 @@ services:
   file-server:
     build:
       context: "./file-server"
-    image: "flowforge/file-server"
+    image: "flowfuse/file-server"
     networks:
       - flowforge
     restart: always
