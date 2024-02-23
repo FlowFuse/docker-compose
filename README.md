@@ -29,7 +29,7 @@ This  will mean that any host at `example.com` will resolve to the `192.168.0.8`
 
 ### Building Containers
 
-To build thes required containers simply run `./build-containers.sh`.
+To build the required containers simply run `./build-containers.sh`.
 
 This will build and tag `flowfuse/forge-docker` and `flowfuse/node-red` and `flowfuse/file-server`.
 
