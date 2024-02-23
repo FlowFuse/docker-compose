@@ -1,5 +1,5 @@
 #!/bin/bash
 
-docker build flowforge-docker -t flowforge/forge-docker
-docker build node-red-container -t flowforge/node-red
-docker build file-server -t flowforge/file-server
+docker build flowforge-docker -t flowfuse/forge-docker
+docker build node-red-container -t flowfuse/node-red
+docker build file-server -t flowfuse/file-server

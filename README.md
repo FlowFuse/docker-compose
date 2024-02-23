@@ -29,21 +29,21 @@ This  will mean that any host at `example.com` will resolve to the `192.168.0.8`
 
 ### Building Containers
 
-To build the 2 required containers simply run `./build-containers.sh`.
+To build the required containers simply run `./build-containers.sh`.
 
-This will build and tag both `flowforge/forge-docker` and `flowforge/node-red` and `flowforge/file-server`.
+This will build and tag `flowfuse/forge-docker` and `flowfuse/node-red` and `flowfuse/file-server`.
 
-#### flowforge/flowforge-docker
+#### flowfuse/flowforge-docker
 
 This container holds the FlowFuse App and the Docker Driver.
 
-#### flowforge/node-red
+#### flowfuse/node-red
 
 This is a basic Node-RED image with the FlowFuse Launcher and the required Node-RED plugins to talk to the FlowFuse Platform.
 
 This is the container you can customize for your deployment.
 
-#### flowforge/file-server
+#### flowfuse/file-server
 
 This holds the Object Store used to allow persistent file storage for Projects running on Docker
 
