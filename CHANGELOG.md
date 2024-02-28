@@ -1,3 +1,11 @@
+#### 2.1.1: Release
+
+ - Rename containers in README and build script (#125) @hardillb
+ - Support npm offline for windows (#126) @hardillb
+ - NPM Registry cache for offline installs. (#121) @hardillb
+ - Rename containers 2 (#117) @hardillb
+ - Fix sync to maintenance branch (#123) @hardillb
+ 
 #### 2.1.0: Release
 
 
