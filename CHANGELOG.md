@@ -1,4 +1,8 @@
-#### 2.2.1: Releaes
+#### 2.2.2: Release
+
+ - bump driver-docker to 2.2.1 @hardillb
+
+#### 2.2.1: Release
 
 
 #### 2.2.0: Release
