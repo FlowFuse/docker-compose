@@ -13,6 +13,7 @@ WORKDIR /data
 RUN npm install
 
 USER root
+RUN mkdir -p /usr/local/ssl-certs
 
 WORKDIR /usr/src/flowforge-nr-launcher
 RUN chown node-red:node-red /data/* /usr/src/flowforge-nr-launcher
