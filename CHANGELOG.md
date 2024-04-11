@@ -1,3 +1,7 @@
+#### 2.3.0: Release
+
+ - Ensure ssl-certs dir exists (#131) @hardillb
+
 #### 2.2.2: Release
 
  - bump driver-docker to 2.2.1 @hardillb
