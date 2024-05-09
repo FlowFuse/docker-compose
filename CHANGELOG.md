@@ -1,3 +1,6 @@
+#### 2.4.0: Release
+
+
 #### 2.3.0: Release
 
  - Ensure ssl-certs dir exists (#131) @hardillb
