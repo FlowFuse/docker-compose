@@ -1,7 +1,7 @@
 {
     "name": "node-red-project",
     "description": "A Node-RED Project",
-    "version": "2.3.0",
+    "version": "2.4.0",
     "private": true,
     "dependencies": {}
 }
