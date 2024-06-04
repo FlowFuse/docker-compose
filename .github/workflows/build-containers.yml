@@ -7,7 +7,7 @@ jobs:
   build_application_container:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           repository: 'flowforge/docker-compose'
           fetch-depth: 0
