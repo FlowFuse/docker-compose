@@ -1,3 +1,8 @@
+#### 2.5.0: Release
+
+ - Bump actions/checkout from 3 to 4 (#137) @app/dependabot
+ - Enable dependabot for github actions (#135) @ppawlowski
+
 #### 2.4.0: Release
 
 
