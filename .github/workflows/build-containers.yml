@@ -41,14 +41,14 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           push: true
       - name: Push README
-        uses: peter-evans/dockerhub-description@v3
+        uses: peter-evans/dockerhub-description@v4
         with:
           repository: flowforge/forge-docker
           username: flowforge
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
           readme-filepath: docker-compose/README.md
       - name: Push README flowfuse
-        uses: peter-evans/dockerhub-description@v3
+        uses: peter-evans/dockerhub-description@v4
         with:
           repository: flowfuse/forge-docker
           username: flowfuse
