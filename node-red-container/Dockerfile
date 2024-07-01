@@ -1,4 +1,4 @@
-FROM nodered/node-red:latest-18
+FROM nodered/node-red:3.1.10-18
 
 ARG REGISTRY
 ARG REGISTRY_TOKEN
@@ -10,18 +10,27 @@ COPY healthcheck.js /healthcheck.js
 
 COPY package.json /data
 WORKDIR /data
+RUN mkdir node_modules
 RUN npm install
 
 USER root
 RUN mkdir -p /usr/local/ssl-certs
 
 WORKDIR /usr/src/flowforge-nr-launcher
-RUN chown node-red:node-red /data/* /usr/src/flowforge-nr-launcher
+RUN chown -R node-red:node-red /usr/src/flowforge-nr-launcher
 
 USER node-red
 RUN npm install @flowfuse/nr-launcher@${BUILD_TAG}
 
+USER root
+RUN mkdir -p /data/storage
+RUN chmod -R g+w /data/* /data/.npm/* 
+RUN chown -R node-red:root /data/* /data/.npm/* 
+
+USER node-red
+
 ENV NODE_PATH=/usr/src/node-red
+ENV HOME=/usr/src/node-red
 
 EXPOSE 2880
 
