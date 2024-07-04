@@ -1,3 +1,8 @@
+#### 2.6.0: Release
+
+ - Add storage path to /data (#145) @hardillb
+ - Bump peter-evans/dockerhub-description from 3 to 4 (#142) @app/dependabot
+
 #### 2.5.0: Release
 
  - Bump actions/checkout from 3 to 4 (#137) @app/dependabot
