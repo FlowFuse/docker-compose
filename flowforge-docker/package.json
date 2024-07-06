@@ -1,7 +1,7 @@
 {
     "name": "@flowfuse/docker-deployment",
     "description": "FlowFuse in Docker",
-    "version": "2.6.0",
+    "version": "2.6.1",
     "private": true,
     "author": {
         "name": "FlowForge Inc."
