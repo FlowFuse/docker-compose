@@ -1,3 +1,7 @@
+#### 2.6.1: Release
+
+ - Bump to FlowFuse 2.6.1 @hardillb
+
 #### 2.6.0: Release
 
  - Add storage path to /data (#145) @hardillb
