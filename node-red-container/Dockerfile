@@ -18,6 +18,7 @@ RUN mkdir -p /usr/local/ssl-certs
 
 WORKDIR /usr/src/flowforge-nr-launcher
 RUN chown -R node-red:node-red /usr/src/flowforge-nr-launcher
+RUN ln -s /usr/src/flowforge-nr-launcher /usr/src/flowfuse-nr-launcher
 
 USER node-red
 RUN npm install @flowfuse/nr-launcher@${BUILD_TAG}
