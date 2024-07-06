@@ -7,7 +7,7 @@
         "name": "FlowForge Inc."
     },
     "dependencies": {
-        "@flowfuse/flowfuse": "^2.6.0",
+        "@flowfuse/flowfuse": "^2.6.1",
         "@flowfuse/driver-docker": "^2.6.0",
         "pg": "^8.7.1",
         "pg-hstore": "^2.3.4"
