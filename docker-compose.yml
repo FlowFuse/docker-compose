@@ -66,6 +66,7 @@ services:
     volumes:
       - "/var/run/docker.sock:/tmp/docker.sock"
       - "./etc/flowforge.yml:/usr/src/forge/etc/flowforge.yml"
+      - "./persistent-storage:/opt/persistent-storage"
     depends_on:
       - "postgres"
       - "nginx"
