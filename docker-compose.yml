@@ -17,7 +17,7 @@ services:
     # environment:
       # - "HTTPS_METHOD=redirect"
   # acme:
-  #   image: nginxproxy/acme-companion
+  #   image: nginxproxy/acme-companion:2.4.0
   #   restart: always
   #   volumes:
   #     - "/var/run/docker.sock:/var/run/docker.sock:ro"
