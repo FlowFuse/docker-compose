@@ -1,3 +1,9 @@
+#### 2.7.0: Release
+
+ - Lock nginx-proxy to a fixed tag (#151) @hardillb
+ - Add mount for persistent-storage (#150) @hardillb
+ - rebrand working dir (#149) @hardillb
+
 #### 2.6.1: Release
 
  - Bump to FlowFuse 2.6.1 @hardillb
