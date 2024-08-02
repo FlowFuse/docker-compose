@@ -1,3 +1,7 @@
+#### 2.7.1: Release
+
+ - Bump to driver-docker 2.7.1 @knolleary
+
 #### 2.7.0: Release
 
  - Lock nginx-proxy to a fixed tag (#151) @hardillb
