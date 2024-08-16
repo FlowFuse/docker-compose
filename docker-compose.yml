@@ -1,4 +1,3 @@
-version: "3.3"
 services:
   nginx:
     image: nginxproxy/nginx-proxy:1.6.0
