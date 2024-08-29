@@ -1,3 +1,7 @@
+#### 2.8.0: Release
+
+ - Update docker-compose.yml (#154) @hardillb
+
 #### 2.7.1: Release
 
  - Bump to driver-docker 2.7.1 @knolleary
