@@ -33,7 +33,7 @@ jobs:
           username: flowforge
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
       - name: Build and push FlowForge Application container
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v6
         with:
           context: docker-compose/flowforge-docker
           file: docker-compose/flowforge-docker/Dockerfile
