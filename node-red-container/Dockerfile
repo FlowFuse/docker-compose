@@ -1,4 +1,4 @@
-FROM nodered/node-red:3.1.11-18
+FROM nodered/node-red:3.1.12-18
 
 ARG REGISTRY
 ARG REGISTRY_TOKEN
