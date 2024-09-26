@@ -1,3 +1,12 @@
+#### 2.9.0: Release
+
+ - Bump Node-RED base container (#156) @hardillb
+ - Bump docker/build-push-action from 2 to 6 (#144) @app/dependabot
+ - Bump docker/metadata-action from 3 to 5 (#143) @app/dependabot
+ - Bump docker/setup-qemu-action from 1 to 3 (#140) @app/dependabot
+ - Bump docker/login-action from 1 to 3 (#139) @app/dependabot
+ - Bump docker/setup-buildx-action from 1 to 3 (#136) @app/dependabot
+
 #### 2.8.0: Release
 
  - Update docker-compose.yml (#154) @hardillb
