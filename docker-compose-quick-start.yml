@@ -12,6 +12,7 @@ configs:
         logging: false
         type: postgres
         host: postgres
+        database: flowfuse
         user: forge
         password: secret
       driver:
@@ -19,7 +20,7 @@ configs:
         options:
           socket: /tmp/docker.sock
       broker:
-        url: mqtt://flowforge-broker:1883
+        url: mqtt://broker:1883
         public_url: ws://mqtt.${DOMAIN:?error}
       fileStore:
         url: http://file-server:3001
@@ -70,8 +71,8 @@ configs:
       set -e
       psql -v ON_ERROR_STOP=1 -U root <<-ESQL
         CREATE USER forge WITH PASSWORD 'secret';
-        CREATE DATABASE flowforge;
-        GRANT ALL PRIVILEGES ON DATABASE flowforge TO forge;
+        CREATE DATABASE flowfuse;
+        GRANT ALL PRIVILEGES ON DATABASE flowfuse TO forge;
       ESQL
   postgres_context_setup:
     content: |
@@ -110,7 +111,7 @@ services:
         target: /docker-entrypoint-initdb.d/02-setup-context-db.sh
     volumes:
       - db:/var/lib/postgresql/data
-  flowforge-broker:
+  broker:
     image: "iegomez/mosquitto-go-auth"
     networks:
       - flowforge
@@ -141,7 +142,7 @@ services:
     depends_on:
       - "postgres"
       - "nginx"
-      - "flowforge-broker"
+      - "broker"
 
   file-server:
     image: "flowfuse/file-server"
