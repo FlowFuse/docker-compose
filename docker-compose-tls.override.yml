@@ -1,0 +1,42 @@
+configs:
+  flowfuse:
+    content: |
+      port: 3000
+      host: 0.0.0.0
+      domain: ${DOMAIN:?error}
+      base_url: https://forge.${DOMAIN:?error}
+      api_url: http://forge:3000
+      db:
+        logging: false
+        type: postgres
+        host: postgres
+        user: forge
+        password: secret
+      driver:
+        type: docker
+        options:
+          socket: /tmp/docker.sock
+      broker:
+        url: mqtt://broker:1883
+        public_url: wss://mqtt.${DOMAIN:?error}
+      fileStore:
+        url: http://file-server:3001
+
+services:
+  acme:
+    image: nginxproxy/acme-companion:2.4.0
+    networks:
+      - flowforge
+    restart: always
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "acme:/etc/acme.sh"
+    volumes_from:
+      - nginx:rw
+    environment:
+      - "DEFAULT_EMAIL=mail@${DOMAIN:?error}"
+    depends_on:
+      - "nginx"
+
+volumes:
+  acme:
