@@ -6,7 +6,7 @@ configs:
       port: 3000
       host: 0.0.0.0
       domain: ${DOMAIN:?error}
-      base_url: http://forge.${DOMAIN:?error}
+      base_url: ${APP_SCHEME}://forge.${DOMAIN:?error}
       api_url: http://forge:3000
       db:
         logging: false
@@ -20,7 +20,7 @@ configs:
           socket: /tmp/docker.sock
       broker:
         url: mqtt://broker:1883
-        public_url: ws://mqtt.${DOMAIN:?error}
+        public_url: ${MQTT_SCHEME}://mqtt.${DOMAIN:?error}
       fileStore:
         url: http://file-server:3001
   flowfuse_broker:
@@ -109,6 +109,23 @@ services:
     environment:
       - "HTTPS_METHOD=redirect"
 
+  acme:
+    image: nginxproxy/acme-companion:2.4.0
+    networks:
+      - flowforge
+    restart: always
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "acme:/etc/acme.sh"
+    volumes_from:
+      - nginx:rw
+    environment:
+      - "DEFAULT_EMAIL=mail@${DOMAIN:?error}"
+    depends_on:
+      - "nginx"
+    profiles:
+      - ssl-enabled
+
   postgres:
     image: postgres:14
     networks: 
@@ -192,4 +209,5 @@ volumes:
   db:
   nginx-proxy-certs:
   nginx-proxy-html:
-  fileStorage: 
+  fileStorage:
+  acme: 
