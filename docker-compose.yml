@@ -22,6 +22,7 @@ configs:
         url: mqtt://broker:1883
         public_url: ws://mqtt.${DOMAIN:?error}
       fileStore:
+        enable: true
         url: http://file-server:3001
   flowfuse_broker:
     content: |

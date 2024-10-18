@@ -20,6 +20,7 @@ configs:
         url: mqtt://broker:1883
         public_url: wss://mqtt.${DOMAIN:?error}
       fileStore:
+        enable: true
         url: http://file-server:3001
 
 services:
