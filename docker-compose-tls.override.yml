@@ -37,6 +37,8 @@ services:
       - "DEFAULT_EMAIL=mail@${DOMAIN:?error}"
     depends_on:
       - "nginx"
+    profiles:
+      - autossl
 
 volumes:
   acme:
