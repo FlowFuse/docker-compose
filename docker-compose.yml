@@ -6,7 +6,7 @@ configs:
       port: 3000
       host: 0.0.0.0
       domain: ${DOMAIN:?error}
-      base_url: ${APP_SCHEME}://forge.${DOMAIN:?error}
+      base_url: http://forge.${DOMAIN:?error}
       api_url: http://forge:3000
       db:
         logging: false
@@ -20,7 +20,7 @@ configs:
           socket: /tmp/docker.sock
       broker:
         url: mqtt://broker:1883
-        public_url: ${MQTT_SCHEME}://mqtt.${DOMAIN:?error}
+        public_url: ws://mqtt.${DOMAIN:?error}
       fileStore:
         url: http://file-server:3001
   flowfuse_broker:
@@ -193,4 +193,3 @@ volumes:
   nginx-proxy-certs:
   nginx-proxy-html:
   fileStorage:
-  acme: 
