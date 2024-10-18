@@ -109,23 +109,6 @@ services:
     environment:
       - "HTTPS_METHOD=redirect"
 
-  acme:
-    image: nginxproxy/acme-companion:2.4.0
-    networks:
-      - flowforge
-    restart: always
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-      - "acme:/etc/acme.sh"
-    volumes_from:
-      - nginx:rw
-    environment:
-      - "DEFAULT_EMAIL=mail@${DOMAIN:?error}"
-    depends_on:
-      - "nginx"
-    profiles:
-      - ssl-enabled
-
   postgres:
     image: postgres:14
     networks: 
