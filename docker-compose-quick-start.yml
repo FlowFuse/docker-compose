@@ -1,0 +1,166 @@
+name: flowfuse
+
+configs:
+  flowfuse:
+    content: |
+      port: 3000
+      host: 0.0.0.0
+      domain: ${DOMAIN:?error}
+      base_url: http://forge.${DOMAIN:?error}
+      api_url: http://forge:3000
+      db:
+        logging: false
+        type: postgres
+        host: postgres
+        database: flowfuse
+        user: forge
+        password: secret
+      driver:
+        type: docker
+        options:
+          socket: /tmp/docker.sock
+      broker:
+        url: mqtt://broker:1883
+        public_url: ws://mqtt.${DOMAIN:?error}
+      fileStore:
+        url: http://file-server:3001
+  flowfuse_broker:
+    content: |
+      per_listener_settings false
+      allow_anonymous false
+      listener 1883 0.0.0.0
+      listener 1884 0.0.0.0
+      protocol websockets
+      auth_plugin /mosquitto/go-auth.so
+      auth_opt_backends http
+      auth_opt_hasher bcrypt
+      auth_opt_cache true
+      auth_opt_auth_cache_seconds 30
+      auth_opt_acl_cache_seconds 90
+      auth_opt_auth_jitter_second 3
+      auth_opt_acl_jitter_seconds 5
+      auth_opt_http_host forge
+      auth_opt_http_port 3000
+      auth_opt_http_getuser_uri /api/comms/auth/client
+      auth_opt_http_aclcheck_uri /api/comms/auth/acl
+  flowfuse_storage:
+    content: |
+      port: 3001
+      host: 0.0.0.0
+      base_url: http://forge:3000
+      driver:
+        type: localfs
+        quota: 104857600
+        options:
+          root: var/root
+      context:
+        type: sequelize
+        quota: 1048576
+        options:
+          type: postgres
+          host: postgres
+          database: ff-context
+          username: forge
+          password: secret
+  nginx:
+    content: |
+      client_max_body_size 5m;
+  postgres_db_setup:
+    content: |
+      #!/bin/sh
+      set -e
+      psql -v ON_ERROR_STOP=1 -U root <<-ESQL
+        CREATE USER forge WITH PASSWORD 'secret';
+        CREATE DATABASE flowfuse;
+        GRANT ALL PRIVILEGES ON DATABASE flowfuse TO forge;
+      ESQL
+  postgres_context_setup:
+    content: |
+      #!/bin/sh
+      set -e
+      psql -v ON_ERROR_STOP=1 -U root <<-ESQL
+        SELECT 'CREATE DATABASE "ff-context"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'ff-context')\gexec
+        GRANT ALL PRIVILEGES ON DATABASE "ff-context" TO "forge";
+      ESQL
+
+services:
+  nginx:
+    image: nginxproxy/nginx-proxy:1.6.0
+    networks:
+      - flowforge 
+    restart: always
+    volumes:
+      - "/var/run/docker.sock:/tmp/docker.sock:ro"
+    configs:
+      - source: nginx
+        target: /etc/nginx/conf.d/my_proxy.conf
+    ports:
+      - "80:80"
+  postgres:
+    image: postgres:14
+    networks: 
+      - flowforge
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: secret
+      POSTGRES_USER: root
+    configs:
+      - source: postgres_db_setup
+        target: /docker-entrypoint-initdb.d/01-setup-db.sh
+      - source: postgres_context_setup
+        target: /docker-entrypoint-initdb.d/02-setup-context-db.sh
+    volumes:
+      - db:/var/lib/postgresql/data
+  broker:
+    image: "iegomez/mosquitto-go-auth"
+    networks:
+      - flowforge
+    restart: always
+    ulimits:
+      nofile: 2048
+    environment:
+      - "VIRTUAL_HOST=mqtt.${DOMAIN:?error}"
+      - "VIRTUAL_PORT=1884"
+      - "LETSENCRYPT_HOST=mqtt.${DOMAIN:?error}"
+    configs:
+      - source: flowfuse_broker
+        target: /etc/mosquitto/mosquitto.conf
+  forge:
+    image: "flowfuse/forge-docker"
+    networks: 
+      - flowforge
+    restart: always
+    environment:
+      - "VIRTUAL_HOST=forge.${DOMAIN:?error}"
+      - "LETSENCRYPT_HOST=forge.${DOMAIN:?error}"
+    configs:
+      - source: flowfuse
+        target: /usr/src/forge/etc/flowforge.yml
+    volumes:
+      - "/var/run/docker.sock:/tmp/docker.sock"
+      - flowfuse-persistent-storage:/opt/persistent-storage
+    depends_on:
+      - "postgres"
+      - "nginx"
+      - "broker"
+
+  file-server:
+    image: "flowfuse/file-server"
+    networks:
+      - flowforge
+    restart: always
+    configs:
+      - source: flowfuse_storage
+        target: /usr/src/flowforge-file-server/etc/flowforge-storage.yml
+    volumes:
+      - fileStorage:/usr/src/flowforge-file-server/var/root
+    depends_on:
+      - "forge"
+
+networks:
+  flowforge:
+
+volumes:
+  flowfuse-persistent-storage:
+  db:
+  fileStorage:
