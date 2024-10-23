@@ -186,7 +186,7 @@ services:
     depends_on:
       - "nginx"
     profiles:
-      - ${TLS_CERTIFICATE:+disabled}
+      - autotls
 
   # npm:
   #   image: "verdaccio/verdaccio:5"
