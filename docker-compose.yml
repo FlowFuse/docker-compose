@@ -6,7 +6,7 @@ configs:
       port: 3000
       host: 0.0.0.0
       domain: ${DOMAIN:?error}
-      base_url: http://forge.${DOMAIN:?error}
+      base_url: http${TLS_ENABLED:+s}://forge.${DOMAIN:?error}
       api_url: http://forge:3000
       db:
         logging: false
@@ -20,7 +20,7 @@ configs:
           socket: /tmp/docker.sock
       broker:
         url: mqtt://broker:1883
-        public_url: ws://mqtt.${DOMAIN:?error}
+        public_url: ws${TLS_ENABLED:+s}://mqtt.${DOMAIN:?error}
       fileStore:
         enable: true
         url: http://file-server:3001
@@ -66,9 +66,9 @@ configs:
     content: |
       client_max_body_size 5m;
   nginx_tls_crt:
-    environment: TLS_CERTIFICATE
+    environment: ${TLS_ENABLED:+TLS_CERTIFICATE}
   nginx_tls_key:
-    environment: TLS_KEY
+    environment: ${TLS_ENABLED:+TLS_KEY}
   postgres_db_setup:
     content: |
       #!/bin/sh
@@ -171,6 +171,23 @@ services:
     depends_on:
       - "forge"
 
+  acme:
+    image: nginxproxy/acme-companion:2.4.0
+    networks:
+      - flowforge
+    restart: always
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "acme:/etc/acme.sh"
+    volumes_from:
+      - nginx:rw
+    environment:
+      - "DEFAULT_EMAIL=mail@${DOMAIN:?error}"
+    depends_on:
+      - "nginx"
+    profiles:
+      - ${TLS_CERTIFICATE:+disabled}
+
   # npm:
   #   image: "verdaccio/verdaccio:5"
   #   networks:
@@ -194,3 +211,4 @@ volumes:
   nginx-proxy-certs:
   nginx-proxy-html:
   fileStorage:
+  acme:
