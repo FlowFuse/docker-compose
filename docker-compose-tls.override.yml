@@ -9,9 +9,9 @@ configs:
       db:
         logging: false
         type: postgres
-        host: postgres
-        user: forge
-        password: secret
+        host: ${DB_HOST:-postgres}
+        user: ${DB_USER:-forge}
+        password: ${DB_PASSWORD:-secret}
       driver:
         type: docker
         options:
