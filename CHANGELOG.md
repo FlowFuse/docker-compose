@@ -1,3 +1,7 @@
+#### 2.10.0: Release
+
+ - Introduce quick-start compose file (#158) @ppawlowski
+
 #### 2.9.0: Release
 
  - Bump Node-RED base container (#156) @hardillb
