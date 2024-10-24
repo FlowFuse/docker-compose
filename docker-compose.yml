@@ -8,12 +8,23 @@ configs:
       domain: ${DOMAIN:?error}
       base_url: http${TLS_ENABLED:+s}://forge.${DOMAIN:?error}
       api_url: http://forge:3000
+      create_admin: ${CREATE_ADMIN:-false}
       db:
         logging: false
         type: postgres
         host: ${DB_HOST:-postgres}
         user: ${DB_USER:-forge}
         password: ${DB_PASSWORD:-secret}
+      email:
+        enabled: ${EMAIL_ENABLED:-false}
+        from: '"FlowFuse" <flowfuse@${DOMAIN:?error}>'
+        smtp:
+          host: ${EMAIL_HOST}
+          port: ${EMAIL_PORT:-587}
+          secure: ${EMAIL_SECURE:-false}
+          auth:
+            user: ${EMAIL_USER}
+            pass: ${EMAIL_PASSWORD}
       driver:
         type: docker
         options:
