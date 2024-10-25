@@ -151,7 +151,7 @@ services:
       - source: flowfuse_broker
         target: /etc/mosquitto/mosquitto.conf
   forge:
-    image: "flowfuse/forge-docker:2.9.0"
+    image: "flowfuse/forge-docker:2.10.0"
     networks: 
       - flowforge
     restart: always
@@ -170,7 +170,7 @@ services:
       - "broker"
 
   file-server:
-    image: "flowfuse/file-server:2.9.0"
+    image: "flowfuse/file-server:2.10.0"
     networks:
       - flowforge
     restart: always
