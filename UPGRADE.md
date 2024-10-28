@@ -1,7 +1,7 @@
 # FlowFuse Docker Compose migration guide
 
-This guide will help you migrate your existing FlowFuse platform, created using version prior to `2.9.0`,
-to the new Docker Compose approach available since `2.10.0`.
+This guide will help you migrate your existing FlowFuse platform, created using version prior to `2.10.0`,
+to the new Docker Compose approach available since `2.11.0`.
 
 
 ## Changes
