@@ -77,9 +77,9 @@ configs:
     content: |
       client_max_body_size 5m;
   nginx_tls_crt:
-    environment: ${TLS_ENABLED:+TLS_CERTIFICATE}
+    environment: TLS_CERTIFICATE
   nginx_tls_key:
-    environment: ${TLS_ENABLED:+TLS_KEY}
+    environment: TLS_KEY
   postgres_db_setup:
     content: |
       #!/bin/sh
