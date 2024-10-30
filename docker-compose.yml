@@ -423,7 +423,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
-      # - "1884:1884"
+      - "1884:1884"
     environment:
       - "HTTPS_METHOD=redirect"
 
@@ -479,6 +479,8 @@ services:
         target: /mounted/config/api-keys
     volumes:
       - emqx:/opt/emqx/data
+    profiles:
+      - teamBroker
   forge:
     image: "flowfuse/forge-docker:2.10.0"
     networks: 
