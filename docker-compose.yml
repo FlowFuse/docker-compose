@@ -431,6 +431,8 @@ services:
         target: /etc/nginx/certs/${DOMAIN:?error}.crt
       - source: nginx_tls_key
         target: /etc/nginx/certs/${DOMAIN:?error}.key
+      - source: nginx_stream
+        target: /etc/nginx/toplevel.conf.d/mqtt.conf
     ports:
       - "80:80"
       - "443:443"
