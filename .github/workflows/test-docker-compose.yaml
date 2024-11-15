@@ -21,13 +21,13 @@ jobs:
           cp .env.example .env
           sed -i 's/DOMAIN=.*/DOMAIN=ci-example.com/' .env
 
-      - name: Create stack with Docker Compose
+      - name: Create stack
         uses: hoverkraft-tech/compose-action@v2.0.2
         with:
           compose-file: "./docker-compose.yml"
-          up-flags: "-d"
+          up-flags: "-d --quiet-pull"
 
-      - name: Run tests
+      - name: Check readiness
         run: |
           has_healthcheck() {
             local container=$1
