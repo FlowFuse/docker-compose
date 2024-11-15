@@ -40,7 +40,7 @@ jobs:
               container_name=$(docker inspect --format '{{.Name}}' "$container" | sed 's/\///')
               container_ip=$(docker inspect --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$container")
               
-              if check_has_healthcheck "$container"; then
+              if has_healthcheck "$container"; then
                 echo "Container has healthcheck defined"
                 status=$(docker inspect --format "{{.State.Health.Status}}" "$container")
                 if [ "$status" != "healthy" ]; then
