@@ -120,6 +120,18 @@ services:
       - "443:443"
     environment:
       - "HTTPS_METHOD=redirect"
+    healthcheck:
+      test: |
+        response=$$(curl -s -o /dev/null -w "%{http_code}" http://localhost);
+        if [ $$response = "503" ]; then
+          exit 0;
+        else
+          exit 1;
+        fi
+      interval: 5s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
 
   postgres:
     image: postgres:14
@@ -136,6 +148,13 @@ services:
         target: /docker-entrypoint-initdb.d/02-setup-context-db.sh
     volumes:
       - db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
   broker:
     image: "iegomez/mosquitto-go-auth:latest-mosquitto_2.0.15"
     networks:
@@ -150,6 +169,7 @@ services:
     configs:
       - source: flowfuse_broker
         target: /etc/mosquitto/mosquitto.conf
+
   forge:
     image: "flowfuse/forge-docker:2.10.0"
     networks: 
@@ -168,6 +188,12 @@ services:
       - "postgres"
       - "nginx"
       - "broker"
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://127.0.0.1:3000/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) }).on('error', () => process.exit(1))"]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
 
   file-server:
     image: "flowfuse/file-server:2.10.0"
@@ -181,6 +207,12 @@ services:
       - fileStorage:/usr/src/flowforge-file-server/var/root
     depends_on:
       - "forge"
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://127.0.0.1:3001/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) }).on('error', () => process.exit(1))"]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
 
   acme:
     image: nginxproxy/acme-companion:2.4.0
