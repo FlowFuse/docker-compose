@@ -136,13 +136,6 @@ services:
         target: /docker-entrypoint-initdb.d/02-setup-context-db.sh
     volumes:
       - db:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
-      start_period: 10s
-
   broker:
     image: "iegomez/mosquitto-go-auth:latest-mosquitto_2.0.15"
     networks:
