@@ -81,7 +81,7 @@ jobs:
           echo "✅ All containers are ready!"
           docker compose ps
 
-      - name: Tear down Docker Compose
+      - name: Tear down the stack
         if: always()
         run: docker compose down
 
@@ -158,6 +158,6 @@ jobs:
           echo "✅ All containers are ready!"
           docker compose ps
 
-      - name: Tear down Docker Compose
+      - name: Tear down the stack
         if: always()
         run: docker compose down
