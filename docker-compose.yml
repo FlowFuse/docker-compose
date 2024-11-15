@@ -121,13 +121,7 @@ services:
     environment:
       - "HTTPS_METHOD=redirect"
     healthcheck:
-      test: |
-        response=$$(curl -s -o /dev/null -w "%{http_code}" http://localhost);
-        if [ $$response = "503" ]; then
-          exit 0;
-        else
-          exit 1;
-        fi
+      test: "curl -s -I http://localhost | head -n 1 | grep -q 503"
       interval: 5s
       timeout: 5s
       retries: 3
