@@ -9,7 +9,8 @@ on:
       - main
 
 jobs:
-  test:
+  default-stack:
+    name: Test default Docker Compose stack
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
