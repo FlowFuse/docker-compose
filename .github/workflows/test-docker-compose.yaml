@@ -28,18 +28,25 @@ jobs:
 
       - name: Run tests
         run: |
+          has_healthcheck() {
+            local container=$1
+            local health_status=$(docker inspect --format='{{if .Config.Healthcheck}}true{{else}}false{{end}}' "$container")
+            [ "$health_status" = "true" ]
+          }
+          
           check_containers() {
             containers=$(docker compose ps -q)
             for container in $containers; do
               container_name=$(docker inspect --format '{{.Name}}' "$container" | sed 's/\///')
               container_ip=$(docker inspect --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$container")
               
-              if docker inspect --format '{{.Config.Healthcheck}}' "$container" 2>/dev/null | grep -q .; then
+              if check_has_healthcheck "$container"; then
+                echo "Container has healthcheck defined"
                 status=$(docker inspect --format "{{.State.Health.Status}}" "$container")
                 if [ "$status" != "healthy" ]; then
                   echo "❌ Container $container_name is not healthy (status: $status)"
-                  return 1
-                fi
+                return 1
+            fi
               else
                 running=$(docker inspect --format "{{.State.Running}}" "$container")
                 if [ "$running" != "true" ]; then
