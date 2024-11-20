@@ -103,7 +103,7 @@ configs:
           }
           connect_timeout = "15s"
           enable = true
-          enable_pipelining = 11
+          enable_pipelining = 1
           headers {
             content-type = "application/json"
           }
