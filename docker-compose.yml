@@ -33,7 +33,7 @@ configs:
         url: mqtt://teamBroker:1883
         public_url: ws${TLS_ENABLED:+s}://mqtt.${DOMAIN:?error}
         teamBroker:
-          enabled: ${TEAM_BROKER_ENABLED}
+          enabled: true
       fileStore:
         enable: true
         url: http://file-server:3001
