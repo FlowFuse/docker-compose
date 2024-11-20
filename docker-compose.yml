@@ -65,15 +65,15 @@ configs:
     environment: TLS_KEY
   nginx_stream:
     content: |
-      stream {
-        server {
-          listen 1884 ssl;
-          ssl_protocols TLSv1.2;
-          ssl_certificate /etc/nginx/certs/broker.${DOMAIN}.crt;
-          ssl_certificate_key /etc/nginx/certs/broker.${DOMAIN}.key;
-          proxy_pass teamBroker:1883;
-        }
-      }
+      # stream {
+      #  server {
+      #    listen 1884 ssl;
+      #    ssl_protocols TLSv1.2;
+      #    ssl_certificate /etc/nginx/certs/${DOMAIN}.crt;
+      #    ssl_certificate_key /etc/nginx/certs/${DOMAIN}.key;
+      #    proxy_pass teamBroker:1883;
+      #  }
+      #}
   postgres_db_setup:
     content: |
       #!/bin/sh
