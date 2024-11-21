@@ -1,3 +1,12 @@
+#### 2.11.0: Release
+
+ - Ensure the broker service name doesn't change (#168)
+ - ci: Introduce workflow for testing docker compose (#166)
+ - Update Node-RED version in Docker compose (#162)
+ - chore: Refactor docker-compose to simplify installation experience (#160)
+ - First pass at TeamBroker (#165) @hardillb
+ - fix: Remove interpolation when creating TLS certificates (#164) @ppawlowski
+
 #### 2.10.0: Release
 
  - Introduce quick-start compose file (#158) @ppawlowski
