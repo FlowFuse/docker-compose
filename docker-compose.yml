@@ -6,7 +6,7 @@ configs:
       port: 3000
       host: 0.0.0.0
       domain: ${DOMAIN:?error}
-      base_url: http${TLS_ENABLED:+s}://forge.${DOMAIN:?error}
+      base_url: http${TLS_ENABLED:+s}://${APPLICATION_DOMAIN:-forge.${DOMAIN}}
       api_url: http://forge:3000
       create_admin: ${CREATE_ADMIN:-false}
       db:
@@ -17,7 +17,7 @@ configs:
         password: ${DB_PASSWORD:-secret}
       email:
         enabled: ${EMAIL_ENABLED:-false}
-        from: '"FlowFuse" <flowfuse@${DOMAIN:?error}>'
+        from: '"FlowFuse" <flowfuse@${APPLICATION_DOMAIN:-forge.${DOMAIN}}>'
         smtp:
           host: ${EMAIL_HOST}
           port: ${EMAIL_PORT:-587}
@@ -59,10 +59,14 @@ configs:
   nginx:
     content: |
       client_max_body_size 5m;
-  nginx_tls_crt:
+  nginx_main_tls_crt:
     environment: TLS_CERTIFICATE
-  nginx_tls_key:
+  nginx_main_tls_key:
     environment: TLS_KEY
+  nginx_app_tls_crt:
+    environment: APP_TLS_CERTIFICATE
+  nginx_app_tls_key:
+    environment: APP_TLS_KEY
   nginx_stream:
     content: |
       # stream {
@@ -408,10 +412,14 @@ services:
     configs:
       - source: nginx
         target: /etc/nginx/conf.d/my_proxy.conf
-      - source: nginx_tls_crt
+      - source: nginx_main_tls_crt
         target: /etc/nginx/certs/${DOMAIN:?error}.crt
-      - source: nginx_tls_key
+      - source: nginx_main_tls_key
         target: /etc/nginx/certs/${DOMAIN:?error}.key
+      - source: nginx_app_tls_crt
+        target: /etc/nginx/certs/${APPLICATION_DOMAIN:-forge.${DOMAIN}}.crt
+      - source: nginx_app_tls_key
+        target: /etc/nginx/certs/${APPLICATION_DOMAIN:-forge.${DOMAIN}}.key
       - source: nginx_stream
         target: /etc/nginx/toplevel.conf.d/mqtt.conf
     ports:
@@ -448,9 +456,9 @@ services:
       timeout: 25s
       retries: 5
     environment:
-      - "VIRTUAL_HOST=broker.${DOMAIN:?error}"
+      - "VIRTUAL_HOST=broker.${DOMAIN:?error},mqtt.${DOMAIN:?error}"
       - "VIRTUAL_PORT=8080"
-      - "LETSENCRYPT_HOST=broker.${DOMAIN:?error}"
+      - "LETSENCRYPT_HOST=broker.${DOMAIN:?error},mqtt.${DOMAIN:?error}"
       - "EMQX_DASHBOARD__DEFAULT_PASSWORD=topSecret"
     configs:
       - source: emqx
@@ -465,8 +473,8 @@ services:
       - flowforge
     restart: always
     environment:
-      - "VIRTUAL_HOST=forge.${DOMAIN:?error}"
-      - "LETSENCRYPT_HOST=forge.${DOMAIN:?error}"
+      - "VIRTUAL_HOST=${APPLICATION_DOMAIN:-forge.${DOMAIN}}"
+      - "LETSENCRYPT_HOST=${APPLICATION_DOMAIN:-forge.${DOMAIN}}"
     configs:
       - source: flowfuse
         target: /usr/src/forge/etc/flowforge.yml
