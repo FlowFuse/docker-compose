@@ -427,7 +427,7 @@ services:
       - "443:443"
       - "1884:1884"
     environment:
-      - "HTTPS_METHOD=redirect"
+      - HTTPS_METHOD=${TLS_ENABLED:+redirect}
 
   postgres:
     image: postgres:14
