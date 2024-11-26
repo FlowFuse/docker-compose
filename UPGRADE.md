@@ -38,7 +38,6 @@ This allows for easier management of the platform and better separation of conce
 
     ```bash
     curl -o docker-compose-new.yml https://raw.githubusercontent.com/flowfuse/docker-compose/main/docker-compose.yml
-    curl -o docker-compose-tls.override.new.yml https://raw.githubusercontent.com/flowfuse/docker-compose/main/docker-compose-tls.override.yml
     curl -o .env https://raw.githubusercontent.com/flowfuse/docker-compose/main/.env.example
     ```
 
@@ -48,6 +47,8 @@ This allows for easier management of the platform and better separation of conce
   * Make sure, that `broker.url` is seto fo `mqtt://broker:1883`. Update if needed.
 * Copy content of `./etc/flowforge-storage.yml` file to `docker-compose-new.yml` file, to `configs.flowfuse_storage.content` section. Remove all commented lines. Maintain indentation.
 * Set the `DOMAIN` variable in the `.env` file to the domain used by your instance of FlowFuse platform.
+* If FlowFuse application is running outside of the `DOMAIN` scope, set it as a value of `APPLICATION_DOMAIN` variable in the `.env` file.
+* If application should be accessible via seured connection (HTTPS), set `TLS_ENABLED` variable to `true` in `.env` file.
 * If custom certificates are used, copy their content to `.env` file, to `TLS_CERTIFICATE` and `TLS_KEY` variables. They should look like this:
 
   ```bash
@@ -62,6 +63,28 @@ This allows for easier management of the platform and better separation of conce
   -----END CERTIFICATE-----
   "
   TLS_KEY="
+  -----BEGIN PRIVATE KEY-----
+  MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQD
+  ...
+  -----END PRIVATE KEY-----
+  "
+  ```
+
+* If custom certificates are used and FlowFuse application is running on a different domain than other stack components (defined in `APPLICATION_DOMAIN` variable), 
+  use `APP_TLS_CERTIFICATE` and `APP_TLS_KEY` variabls to provide certificate and it's key. They should look like this:
+
+ ```bash
+  APP_TLS_CERTIFICATE="
+  -----BEGIN CERTIFICATE-----
+  MIIFfzCCBKegAwIBAgISA0
+  ...
+  -----END CERTIFICATE-----
+  -----BEGIN CERTIFICATE-----
+  MIIFfzCCBKegAwIBAgISA0
+  ...
+  -----END CERTIFICATE-----
+  "
+  APP_TLS_KEY="
   -----BEGIN PRIVATE KEY-----
   MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQD
   ...
@@ -98,7 +121,6 @@ This allows for easier management of the platform and better separation of conce
     ```bash
     mv docker-compose.yml docker-compose-old.yml
     mv docker-compose-new.yml docker-compose.yml
-    mv docker-compose-tls.override.new.yml docker-compose-tls.override.yml
     ```
 
 6. **Start FlowFuse**
@@ -107,13 +129,7 @@ This allows for easier management of the platform and better separation of conce
 
     * With automatic TLS certificate generation:
     ```bash
-    docker compose -f docker-compose.yml -f docker-compose-tls.override.yml --profile autossl -p flowfuse up -d
-    ```
-
-    * With custom TLS certificate:
-
-    ```bash
-    docker compose -f docker-compose.yml -f docker-compose-tls.override.yml -p flowfuse up -d
+    docker compose -f docker-compose.yml --profile autotls -p flowfuse up -d
     ```
 
     * In all other cases
