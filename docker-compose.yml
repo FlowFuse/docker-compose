@@ -29,6 +29,7 @@ configs:
         type: docker
         options:
           socket: /tmp/docker.sock
+          ${DOCKER_DRIVER_PRIVATE_CA:+privateCA: /mnt/docker_private_ca.pem}
       broker:
         url: mqtt://broker:1883
         public_url: ws${TLS_ENABLED:+s}://mqtt.${DOMAIN:?error}
@@ -37,6 +38,8 @@ configs:
       fileStore:
         enable: true
         url: http://file-server:3001
+  flowfuse_docker_ca:
+    environment: DOCKER_DRIVER_PRIVATE_CA
   flowfuse_storage:
     content: |
       port: 3001
@@ -478,6 +481,8 @@ services:
     configs:
       - source: flowfuse
         target: /usr/src/forge/etc/flowforge.yml
+      - source: flowfuse_docker_ca
+        target: /mnt/docker_private_ca.pem
     volumes:
       - "/var/run/docker.sock:/tmp/docker.sock"
       - flowfuse-persistent-storage:/opt/persistent-storage
