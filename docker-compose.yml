@@ -458,7 +458,7 @@ services:
       retries: 5
     environment:
       - "VIRTUAL_HOST=broker.${DOMAIN:?error},mqtt.${DOMAIN:?error}"
-      - "VIRTUAL_PORT=8080"
+      - "VIRTUAL_PORT=8083"
       - "LETSENCRYPT_HOST=broker.${DOMAIN:?error},mqtt.${DOMAIN:?error}"
       - "EMQX_DASHBOARD__DEFAULT_PASSWORD=topSecret"
     configs:
