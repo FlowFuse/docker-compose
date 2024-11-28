@@ -1,0 +1,163 @@
+name: Test Docker Compose
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  default-stack:
+    name: Test default stack
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create .env file for default settings
+        run: |
+          cp .env.example .env
+          sed -i 's/DOMAIN=.*/DOMAIN=ci-example.com/' .env
+
+      - name: Create stack
+        uses: hoverkraft-tech/compose-action@v2.0.2
+        with:
+          compose-file: "./docker-compose.yml"
+          up-flags: "-d --quiet-pull"
+
+      - name: Check readiness
+        run: |
+          has_healthcheck() {
+            local container=$1
+            local health_status=$(docker inspect --format='{{if .Config.Healthcheck}}true{{else}}false{{end}}' "$container")
+            [ "$health_status" = "true" ]
+          }
+          
+          check_containers() {
+            containers=$(docker compose ps -q)
+            for container in $containers; do
+              container_name=$(docker inspect --format '{{.Name}}' "$container" | sed 's/\///')
+              container_ip=$(docker inspect --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$container")
+              
+              if has_healthcheck "$container"; then
+                echo "Container has healthcheck defined"
+                status=$(docker inspect --format "{{.State.Health.Status}}" "$container")
+                if [ "$status" != "healthy" ]; then
+                  echo "❌ Container $container_name is not healthy (status: $status)"
+                return 1
+            fi
+              else
+                running=$(docker inspect --format "{{.State.Running}}" "$container")
+                if [ "$running" != "true" ]; then
+                  echo "❌ Container $container_name is not running"
+                  return 1
+                fi
+              fi
+              
+              echo "✅ Container $container_name is ready"
+            done
+            return 0
+          }
+          
+          # Wait for containers with timeout
+          TIMEOUT=300  # 5 minutes timeout
+          ELAPSED=0
+          SLEEP_TIME=10
+          
+          until check_containers; do
+            if [ $ELAPSED -ge $TIMEOUT ]; then
+              echo "❌ Timeout waiting for containers to be ready"
+              docker compose ps
+              docker compose logs
+              exit 1
+            fi
+            echo "⏳ Waiting for containers... ($ELAPSED seconds elapsed)"
+            sleep $SLEEP_TIME
+            ELAPSED=$((ELAPSED + SLEEP_TIME))
+          done
+          
+          echo "✅ All containers are ready!"
+          docker compose ps
+
+      - name: Tear down the stack
+        if: always()
+        run: docker compose down
+
+
+  quick-start-stack:
+    name: Test quick-start stack
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create .env file for default settings
+        run: |
+          cp .env.example .env
+          sed -i 's/DOMAIN=.*/DOMAIN=ci-example.com/' .env
+
+      - name: Create stack
+        uses: hoverkraft-tech/compose-action@v2.0.2
+        with:
+          compose-file: "./docker-compose-quick-start.yml"
+          up-flags: "-d --quiet-pull"
+
+      - name: Check readiness
+        run: |
+          has_healthcheck() {
+            local container=$1
+            local health_status=$(docker inspect --format='{{if .Config.Healthcheck}}true{{else}}false{{end}}' "$container")
+            [ "$health_status" = "true" ]
+          }
+          
+          check_containers() {
+            containers=$(docker compose ps -q)
+            for container in $containers; do
+              container_name=$(docker inspect --format '{{.Name}}' "$container" | sed 's/\///')
+              container_ip=$(docker inspect --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$container")
+              
+              if has_healthcheck "$container"; then
+                echo "Container has healthcheck defined"
+                status=$(docker inspect --format "{{.State.Health.Status}}" "$container")
+                if [ "$status" != "healthy" ]; then
+                  echo "❌ Container $container_name is not healthy (status: $status)"
+                return 1
+            fi
+              else
+                running=$(docker inspect --format "{{.State.Running}}" "$container")
+                if [ "$running" != "true" ]; then
+                  echo "❌ Container $container_name is not running"
+                  return 1
+                fi
+              fi
+              
+              echo "✅ Container $container_name is ready"
+            done
+            return 0
+          }
+          
+          # Wait for containers with timeout
+          TIMEOUT=300  # 5 minutes timeout
+          ELAPSED=0
+          SLEEP_TIME=10
+          
+          until check_containers; do
+            if [ $ELAPSED -ge $TIMEOUT ]; then
+              echo "❌ Timeout waiting for containers to be ready"
+              docker compose ps
+              docker compose logs
+              exit 1
+            fi
+            echo "⏳ Waiting for containers... ($ELAPSED seconds elapsed)"
+            sleep $SLEEP_TIME
+            ELAPSED=$((ELAPSED + SLEEP_TIME))
+          done
+          
+          echo "✅ All containers are ready!"
+          docker compose ps
+
+      - name: Tear down the stack
+        if: always()
+        run: docker compose down

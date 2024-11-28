@@ -38,15 +38,17 @@ This allows for easier management of the platform and better separation of conce
 
     ```bash
     curl -o docker-compose-new.yml https://raw.githubusercontent.com/flowfuse/docker-compose/main/docker-compose.yml
-    curl -o docker-compose-tls.override.new.yml https://raw.githubusercontent.com/flowfuse/docker-compose/main/docker-compose-tls.override.yml
     curl -o .env https://raw.githubusercontent.com/flowfuse/docker-compose/main/.env.example
     ```
 
 3. **Move configurations to the new approach**
 
 * Copy content of `./etc/flowforge.yml` file to `docker-compose-new.yml` file, to `configs.flowfuse.content` section. Remove all commented lines. Maintain indentation.
+  * Make sure, that `broker.url` is seto fo `mqtt://broker:1883`. Update if needed.
 * Copy content of `./etc/flowforge-storage.yml` file to `docker-compose-new.yml` file, to `configs.flowfuse_storage.content` section. Remove all commented lines. Maintain indentation.
 * Set the `DOMAIN` variable in the `.env` file to the domain used by your instance of FlowFuse platform.
+* If FlowFuse application is running outside of the `DOMAIN` scope, set it as a value of `APPLICATION_DOMAIN` variable in the `.env` file.
+* If application should be accessible via seured connection (HTTPS), set `TLS_ENABLED` variable to `true` in `.env` file.
 * If custom certificates are used, copy their content to `.env` file, to `TLS_CERTIFICATE` and `TLS_KEY` variables. They should look like this:
 
   ```bash
@@ -61,6 +63,28 @@ This allows for easier management of the platform and better separation of conce
   -----END CERTIFICATE-----
   "
   TLS_KEY="
+  -----BEGIN PRIVATE KEY-----
+  MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQD
+  ...
+  -----END PRIVATE KEY-----
+  "
+  ```
+
+* If custom certificates are used and FlowFuse application is running on a different domain than other stack components (defined in `APPLICATION_DOMAIN` variable), 
+  use `APP_TLS_CERTIFICATE` and `APP_TLS_KEY` variabls to provide certificate and it's key. They should look like this:
+
+ ```bash
+  APP_TLS_CERTIFICATE="
+  -----BEGIN CERTIFICATE-----
+  MIIFfzCCBKegAwIBAgISA0
+  ...
+  -----END CERTIFICATE-----
+  -----BEGIN CERTIFICATE-----
+  MIIFfzCCBKegAwIBAgISA0
+  ...
+  -----END CERTIFICATE-----
+  "
+  APP_TLS_KEY="
   -----BEGIN PRIVATE KEY-----
   MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQD
   ...
@@ -90,19 +114,22 @@ This allows for easier management of the platform and better separation of conce
     docker run --rm -v flowfuse_db:/data -v $(pwd)/db:/backup alpine sh -c "cp -a /backup/. /data/"
     ```
 
-5. **Start FlowFuse**
+5. **Rename files**
+
+    In order to maintain the same file structurem, rename the compose files.
+
+    ```bash
+    mv docker-compose.yml docker-compose-old.yml
+    mv docker-compose-new.yml docker-compose.yml
+    ```
+
+6. **Start FlowFuse**
 
     Start the new FlowFuse platform using the new Docker Compose file.
 
     * With automatic TLS certificate generation:
     ```bash
-    docker compose -f docker-compose-new.yml -f docker-compose-tls.new.override.yml --profile autossl -p flowfuse up -d
-    ```
-
-    * With custom TLS certificate:
-
-    ```bash
-    docker compose -f docker-compose.new.yml -f docker-compose-tls..new.override.yml -p flowfuse up -d
+    docker compose -f docker-compose.yml --profile autotls -p flowfuse up -d
     ```
 
     * In all other cases
@@ -110,12 +137,14 @@ This allows for easier management of the platform and better separation of conce
     ```bash
     docker compose -p flowfuse up -d
     ```
-6. **Verify the migration**
+
+7. **Verify the migration**
 
     Verify that the new FlowFuse platform is working correctly and it is accessible using the domain set in the `.env` file.
     Login credentials should remain the same as before the migration, as well as platform configuration.
+    Restart the Node-RED instances if they appear in `Starting` state.
 
-7. **Cleanup**
+8 **Cleanup**
   
     After verifying that the new FlowFuse platform is working correctly, you can remove the old configuration files.
 
@@ -123,5 +152,6 @@ This allows for easier management of the platform and better separation of conce
     rm ./etc/flowforge.yml ./etc/flowforge.yml.bak
     rm ./etc/flowforge-storage.yml.bak ./etc/flowforge-storage.yml
     rm -rf ./db ./db.bak
+    rm -f ./docker-compose-old.yml
     ```
 

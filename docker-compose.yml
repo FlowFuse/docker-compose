@@ -6,7 +6,7 @@ configs:
       port: 3000
       host: 0.0.0.0
       domain: ${DOMAIN:?error}
-      base_url: http${TLS_ENABLED:+s}://forge.${DOMAIN:?error}
+      base_url: http${TLS_ENABLED:+s}://${APPLICATION_DOMAIN:-forge.${DOMAIN}}
       api_url: http://forge:3000
       create_admin: ${CREATE_ADMIN:-false}
       db:
@@ -17,7 +17,7 @@ configs:
         password: ${DB_PASSWORD:-secret}
       email:
         enabled: ${EMAIL_ENABLED:-false}
-        from: '"FlowFuse" <flowfuse@${DOMAIN:?error}>'
+        from: '"FlowFuse" <flowfuse@${APPLICATION_DOMAIN:-forge.${DOMAIN}}>'
         smtp:
           host: ${EMAIL_HOST}
           port: ${EMAIL_PORT:-587}
@@ -29,31 +29,15 @@ configs:
         type: docker
         options:
           socket: /tmp/docker.sock
+          ${DOCKER_DRIVER_PRIVATE_CA_PATH:+privateCA: ${DOCKER_DRIVER_PRIVATE_CA_PATH}}
       broker:
         url: mqtt://broker:1883
         public_url: ws${TLS_ENABLED:+s}://mqtt.${DOMAIN:?error}
+        teamBroker:
+          enabled: true
       fileStore:
         enable: true
         url: http://file-server:3001
-  flowfuse_broker:
-    content: |
-      per_listener_settings false
-      allow_anonymous false
-      listener 1883 0.0.0.0
-      listener 1884 0.0.0.0
-      protocol websockets
-      auth_plugin /mosquitto/go-auth.so
-      auth_opt_backends http
-      auth_opt_hasher bcrypt
-      auth_opt_cache true
-      auth_opt_auth_cache_seconds 30
-      auth_opt_acl_cache_seconds 90
-      auth_opt_auth_jitter_second 3
-      auth_opt_acl_jitter_seconds 5
-      auth_opt_http_host forge
-      auth_opt_http_port 3000
-      auth_opt_http_getuser_uri /api/comms/auth/client
-      auth_opt_http_aclcheck_uri /api/comms/auth/acl
   flowfuse_storage:
     content: |
       port: 3001
@@ -76,10 +60,25 @@ configs:
   nginx:
     content: |
       client_max_body_size 5m;
-  nginx_tls_crt:
+  nginx_main_tls_crt:
     environment: TLS_CERTIFICATE
-  nginx_tls_key:
+  nginx_main_tls_key:
     environment: TLS_KEY
+  nginx_app_tls_crt:
+    environment: APP_TLS_CERTIFICATE
+  nginx_app_tls_key:
+    environment: APP_TLS_KEY
+  nginx_stream:
+    content: |
+      # stream {
+      #  server {
+      #    listen 1884 ssl;
+      #    ssl_protocols TLSv1.2;
+      #    ssl_certificate /etc/nginx/certs/${DOMAIN}.crt;
+      #    ssl_certificate_key /etc/nginx/certs/${DOMAIN}.key;
+      #    proxy_pass broker:1883;
+      #  }
+      #}
   postgres_db_setup:
     content: |
       #!/bin/sh
@@ -97,6 +96,312 @@ configs:
         SELECT 'CREATE DATABASE "ff-context"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'ff-context')\gexec
         GRANT ALL PRIVILEGES ON DATABASE "ff-context" TO "${DB_USER:-forge}";
       ESQL
+  emqx:
+    content: |
+      authentication = [
+        {
+          backend = http
+          body {
+            clientId = "$${clientid}"
+            password = "$${password}"
+            username = "$${username}"
+          }
+          connect_timeout = "15s"
+          enable = true
+          enable_pipelining = 1
+          headers {
+            content-type = "application/json"
+          }
+          mechanism = password_based
+          method = post
+          pool_size = 8
+          request_timeout = "15s"
+          ssl {
+            ciphers = []
+            depth = 10
+            enable = false
+            hibernate_after = "5s"
+            log_level = notice
+            reuse_sessions = true
+            secure_renegotiate = true
+            verify = verify_peer
+            versions = [
+              "tlsv1.3",
+              "tlsv1.2"
+            ]
+          }
+          url = "http://forge:3000/api/comms/v2/auth"
+        },
+        {
+          backend = built_in_database
+          bootstrap_file = "$${EMQX_ETC_DIR}/auth-built-in-db-bootstrap.csv"
+          bootstrap_type = plain
+          enable = true
+          mechanism = password_based
+          password_hash_algorithm {name = plain, salt_position = disable}
+          user_id_type = username
+        }
+      ]
+      authorization {
+        cache {
+          enable = true
+          excludes = []
+          max_size = 32
+          ttl = "1m"
+        }
+        deny_action = ignore
+        no_match = allow
+        sources = [
+          {
+            body {
+              action = "$${action}"
+              topic = "$${topic}"
+              username = "$${username}"
+            }
+            connect_timeout = "15s"
+            enable = true
+            enable_pipelining = 1
+            headers {
+              content-type = "application/json"
+            }
+            method = post
+            pool_size = 8
+            request_timeout = "30s"
+            ssl {
+              ciphers = []
+              depth = 10
+              enable = false
+              hibernate_after = "5s"
+              log_level = notice
+              reuse_sessions = true
+              secure_renegotiate = true
+              verify = verify_peer
+              versions = [
+                "tlsv1.3",
+                "tlsv1.2"
+              ]
+            }
+            type = http
+            url = "http://forge:3000/api/comms/v2/acls"
+          }
+        ]
+      }
+      mqtt {
+        max_packet_size: 128MB
+      }
+      listeners {
+        ssl {
+          default {
+            acceptors = 16
+            access_rules = [
+              "allow all"
+            ]
+            bind = "0.0.0.0:8883"
+            enable = false
+            enable_authn = true
+            max_conn_rate = infinity
+            max_connections = infinity
+            mountpoint = "$${client_attrs.team}"
+            proxy_protocol = false
+            proxy_protocol_timeout = "3s"
+            ssl_options {
+              cacertfile = "$${EMQX_ETC_DIR}/certs/cacert.pem"
+              certfile = "$${EMQX_ETC_DIR}/certs/cert.pem"
+              ciphers = []
+              client_renegotiation = true
+              depth = 10
+              enable_crl_check = false
+              fail_if_no_peer_cert = false
+              gc_after_handshake = false
+              handshake_timeout = "15s"
+              hibernate_after = "5s"
+              honor_cipher_order = true
+              keyfile = "$${EMQX_ETC_DIR}/certs/key.pem"
+              log_level = notice
+              ocsp {
+                enable_ocsp_stapling = false
+                refresh_http_timeout = "15s"
+                refresh_interval = "5m"
+              }
+              reuse_sessions = true
+              secure_renegotiate = true
+              verify = verify_none
+              versions = [
+                "tlsv1.3",
+                "tlsv1.2"
+              ]
+            }
+            tcp_options {
+              active_n = 100
+              backlog = 1024
+              buffer = "4KB"
+              high_watermark = "1MB"
+              keepalive = none
+              nodelay = true
+              reuseaddr = true
+              send_timeout = "15s"
+              send_timeout_close = true
+            }
+            zone = default
+          }
+        }
+        tcp {
+          default {
+            acceptors = 16
+            access_rules = [
+              "allow all"
+            ]
+            bind = "0.0.0.0:1883"
+            enable = true
+            enable_authn = true
+            max_conn_rate = infinity
+            max_connections = infinity
+            mountpoint = "$${client_attrs.team}"
+            proxy_protocol = false
+            proxy_protocol_timeout = "3s"
+            tcp_options {
+              active_n = 100
+              backlog = 1024
+              buffer = "4KB"
+              high_watermark = "1MB"
+              keepalive = none
+              nodelay = true
+              reuseaddr = true
+              send_timeout = "15s"
+              send_timeout_close = true
+            }
+            zone = default
+          }
+        }
+        ws {
+          default {
+            acceptors = 16
+            access_rules = [
+              "allow all"
+            ]
+            bind = "0.0.0.0:8083"
+            enable = true
+            enable_authn = true
+            max_conn_rate = infinity
+            max_connections = infinity
+            mountpoint = "$${client_attrs.team}"
+            proxy_protocol = false
+            proxy_protocol_timeout = "3s"
+            tcp_options {
+              active_n = 100
+              backlog = 1024
+              buffer = "4KB"
+              high_watermark = "1MB"
+              keepalive = none
+              nodelay = true
+              reuseaddr = true
+              send_timeout = "15s"
+              send_timeout_close = true
+            }
+            websocket {
+              allow_origin_absence = true
+              check_origin_enable = false
+              check_origins = "http://localhost:18083, http://127.0.0.1:18083"
+              compress = false
+              deflate_opts {
+                client_context_takeover = takeover
+                client_max_window_bits = 15
+                mem_level = 8
+                server_context_takeover = takeover
+                server_max_window_bits = 15
+                strategy = default
+              }
+              fail_if_no_subprotocol = true
+              idle_timeout = "7200s"
+              max_frame_size = infinity
+              mqtt_path = "/"
+              mqtt_piggyback = multiple
+              proxy_address_header = "x-forwarded-for"
+              proxy_port_header = "x-forwarded-port"
+              supported_subprotocols = "mqtt, mqtt-v3, mqtt-v3.1.1, mqtt-v5"
+              validate_utf8 = true
+            }
+            zone = default
+          }
+        }
+        wss {
+          default {
+            acceptors = 16
+            access_rules = [
+              "allow all"
+            ]
+            bind = "0.0.0.0:8084"
+            enable = false
+            enable_authn = true
+            max_conn_rate = infinity
+            max_connections = infinity
+            mountpoint = "$${client_attrs.team}"
+            proxy_protocol = false
+            proxy_protocol_timeout = "3s"
+            ssl_options {
+              cacertfile = "$${EMQX_ETC_DIR}/certs/cacert.pem"
+              certfile = "$${EMQX_ETC_DIR}/certs/cert.pem"
+              ciphers = []
+              client_renegotiation = true
+              depth = 10
+              fail_if_no_peer_cert = false
+              handshake_timeout = "15s"
+              hibernate_after = "5s"
+              honor_cipher_order = true
+              keyfile = "$${EMQX_ETC_DIR}/certs/key.pem"
+              log_level = notice
+              reuse_sessions = true
+              secure_renegotiate = true
+              verify = verify_none
+              versions = [
+                "tlsv1.3",
+                "tlsv1.2"
+              ]
+            }
+            tcp_options {
+              active_n = 100
+              backlog = 1024
+              buffer = "4KB"
+              high_watermark = "1MB"
+              keepalive = none
+              nodelay = true
+              reuseaddr = true
+              send_timeout = "15s"
+              send_timeout_close = true
+            }
+            websocket {
+              allow_origin_absence = true
+              check_origin_enable = false
+              check_origins = "http://localhost:18083, http://127.0.0.1:18083"
+              compress = false
+              deflate_opts {
+                client_context_takeover = takeover
+                client_max_window_bits = 15
+                mem_level = 8
+                server_context_takeover = takeover
+                server_max_window_bits = 15
+                strategy = default
+              }
+              fail_if_no_subprotocol = true
+              idle_timeout = "7200s"
+              max_frame_size = infinity
+              mqtt_path = "/"
+              mqtt_piggyback = multiple
+              proxy_address_header = "x-forwarded-for"
+              proxy_port_header = "x-forwarded-port"
+              supported_subprotocols = "mqtt, mqtt-v3, mqtt-v3.1.1, mqtt-v5"
+              validate_utf8 = true
+            }
+            zone = default
+          }
+        }
+      }
+      api_key {
+        bootstrap_file = "/mounted/config/api-keys"
+      }
+  emqx-api:
+    content: |
+      flowfuse:verySecret:administrator
 
 services:
   nginx:
@@ -111,15 +416,22 @@ services:
     configs:
       - source: nginx
         target: /etc/nginx/conf.d/my_proxy.conf
-      - source: nginx_tls_crt
+      - source: nginx_main_tls_crt
         target: /etc/nginx/certs/${DOMAIN:?error}.crt
-      - source: nginx_tls_key
+      - source: nginx_main_tls_key
         target: /etc/nginx/certs/${DOMAIN:?error}.key
+      - source: nginx_app_tls_crt
+        target: /etc/nginx/certs/${APPLICATION_DOMAIN:-forge.${DOMAIN}}.crt
+      - source: nginx_app_tls_key
+        target: /etc/nginx/certs/${APPLICATION_DOMAIN:-forge.${DOMAIN}}.key
+      - source: nginx_stream
+        target: /etc/nginx/toplevel.conf.d/mqtt.conf
     ports:
       - "80:80"
       - "443:443"
+      - "1884:1884"
     environment:
-      - "HTTPS_METHOD=redirect"
+      - HTTPS_METHOD=${TLS_ENABLED:+redirect}
     healthcheck:
       test: "curl -s -I http://localhost | head -n 1 | grep -q 503"
       interval: 5s
@@ -150,28 +462,37 @@ services:
       start_period: 10s
 
   broker:
-    image: "iegomez/mosquitto-go-auth:latest-mosquitto_2.0.15"
+    image: emqx/emqx:5.8.0
     networks:
       - flowforge
-    restart: always
-    ulimits:
-      nofile: 2048
+    ports:
+      - 1883:1883
+    healthcheck:
+      test: ["CMD", "/opt/emqx/bin/emqx", "ctl", "status"]
+      interval: 5s
+      timeout: 25s
+      retries: 5
     environment:
-      - "VIRTUAL_HOST=mqtt.${DOMAIN:?error}"
-      - "VIRTUAL_PORT=1884"
-      - "LETSENCRYPT_HOST=mqtt.${DOMAIN:?error}"
+      - "VIRTUAL_HOST=broker.${DOMAIN:?error},mqtt.${DOMAIN:?error}"
+      - "VIRTUAL_PORT=8083"
+      - "LETSENCRYPT_HOST=broker.${DOMAIN:?error},mqtt.${DOMAIN:?error}"
+      - "EMQX_DASHBOARD__DEFAULT_PASSWORD=topSecret"
     configs:
-      - source: flowfuse_broker
-        target: /etc/mosquitto/mosquitto.conf
+      - source: emqx
+        target: /opt/emqx/data/configs/cluster.hocon
+      - source: emqx-api
+        target: /mounted/config/api-keys
+    volumes:
+      - emqx:/opt/emqx/data
 
   forge:
-    image: "flowfuse/forge-docker:2.10.0"
+    image: "flowfuse/forge-docker:2.11.0"
     networks: 
       - flowforge
     restart: always
     environment:
-      - "VIRTUAL_HOST=forge.${DOMAIN:?error}"
-      - "LETSENCRYPT_HOST=forge.${DOMAIN:?error}"
+      - "VIRTUAL_HOST=${APPLICATION_DOMAIN:-forge.${DOMAIN}}"
+      - "LETSENCRYPT_HOST=${APPLICATION_DOMAIN:-forge.${DOMAIN}}"
     configs:
       - source: flowfuse
         target: /usr/src/forge/etc/flowforge.yml
@@ -190,7 +511,7 @@ services:
       start_period: 10s
 
   file-server:
-    image: "flowfuse/file-server:2.10.0"
+    image: "flowfuse/file-server:2.11.0"
     networks:
       - flowforge
     restart: always
@@ -249,3 +570,4 @@ volumes:
   nginx-proxy-html:
   fileStorage:
   acme:
+  emqx:
