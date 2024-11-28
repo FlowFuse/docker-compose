@@ -432,6 +432,12 @@ services:
       - "1884:1884"
     environment:
       - HTTPS_METHOD=${TLS_ENABLED:+redirect}
+    healthcheck:
+      test: "curl -s -I http://localhost | head -n 1 | grep -q 503"
+      interval: 5s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
 
   postgres:
     image: postgres:14
@@ -448,6 +454,13 @@ services:
         target: /docker-entrypoint-initdb.d/02-setup-context-db.sh
     volumes:
       - db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
   broker:
     image: emqx/emqx:5.8.0
     networks:
@@ -471,6 +484,7 @@ services:
         target: /mounted/config/api-keys
     volumes:
       - emqx:/opt/emqx/data
+
   forge:
     image: "flowfuse/forge-docker:2.11.0"
     networks: 
@@ -489,6 +503,12 @@ services:
       - "postgres"
       - "nginx"
       - "broker"
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://127.0.0.1:3000/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) }).on('error', () => process.exit(1))"]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
 
   file-server:
     image: "flowfuse/file-server:2.11.0"
@@ -502,6 +522,12 @@ services:
       - fileStorage:/usr/src/flowforge-file-server/var/root
     depends_on:
       - "forge"
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://127.0.0.1:3001/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) }).on('error', () => process.exit(1))"]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
 
   acme:
     image: nginxproxy/acme-companion:2.4.0
