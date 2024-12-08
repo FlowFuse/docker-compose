@@ -1,3 +1,4 @@
+name: Build and push containers
 on: 
   push: 
     tags:
@@ -61,3 +62,20 @@ jobs:
           git checkout maintenance
           git reset --hard origin/main
           git push --force origin maintenance
+
+  release-compose-files:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          repository: 'flowforge/docker-compose'
+
+      - name: Add assets to the release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            docker-compose.yml
+            docker-compose-quick-start.yml
