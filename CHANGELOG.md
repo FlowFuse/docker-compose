@@ -1,3 +1,16 @@
+#### 2.12.0: Release
+
+ - Add node-red editor cache files (#181)
+ - Update docker-compose.yml (#178)
+ - feat: Add healthchecks for services in Docker Compose (#167)
+ - Bump max MQTT packet to 128mb (#176)
+ - Fix EMQX WS port number (#175)
+ - Update Node-RED Dockerfile to 3.1.15 (#180) @hardillb
+ - ci: Do not run test against `release-*` branches (#177) @ppawlowski
+ - ci: Add Docker Compose files as assets to a release (#179) @ppawlowski
+ - feat: Add possibility to run application on custom domain name (#172) @ppawlowski
+ - docs: Adjust UPGRADE instruction (#170) @ppawlowski
+
 #### 2.11.0: Release
 
  - Ensure the broker service name doesn't change (#168)
