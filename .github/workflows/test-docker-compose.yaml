@@ -4,19 +4,55 @@ on:
   push:
     branches:
       - main
-      - '!release-**'
+      - '!release-*'
   pull_request:
     branches:
       - main
-      - '!release-**'
+
 
 jobs:
   default-stack:
     name: Test default stack
     runs-on: ubuntu-latest
+    if: | 
+      !startsWith(github.head_ref, 'release-')
     steps:
-      - name: Checkout repository
+      - name: Generate a token
+        id: generate_token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.GH_BOT_APP_ID }}
+          private_key: ${{ secrets.GH_BOT_APP_KEY }}
+
+      - name: Wait for container images build
+        run: |
+          while :; do
+            result=$(gh api repos/:owner/:repo/actions/workflows | jq -r '.workflows[] | select(.name=="Build and push containers") | .id' | xargs -I {} gh api repos/:owner/:repo/actions/workflows/{}/runs --jq '.workflow_runs | max_by(.run_number)')
+            status=$(echo "$result" | jq -r '.status')
+            conclusion=$(echo "$result" | jq -r '.conclusion')
+            if [[ "$status" == "completed" ]]; then
+              if [[ "$conclusion" == "success" ]]; then
+                echo "Build and push containers workflow completed successfully"
+                break
+              else
+                echo "Build and push containers workflow failed"
+                exit 1
+              fi
+            elif [[ "$status" == "in_progress" ]]; then
+              echo "Build and push containers workflow is still running"
+              sleep 60
+            else
+              echo "Build and push containers workflow returned unexpected status: $status"
+              exit 1
+            fi
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Checkout
         uses: actions/checkout@v4
+        with:
+          token: ${{ steps.generate_token.outputs.token }}
 
       - name: Create .env file for default settings
         run: |
@@ -91,9 +127,45 @@ jobs:
   quick-start-stack:
     name: Test quick-start stack
     runs-on: ubuntu-latest
+    if: | 
+      !startsWith(github.head_ref, 'release-')
     steps:
-      - name: Checkout repository
+      - name: Generate a token
+        id: generate_token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.GH_BOT_APP_ID }}
+          private_key: ${{ secrets.GH_BOT_APP_KEY }}
+
+      - name: Wait for container images build
+        run: |
+          while :; do
+            result=$(gh api repos/:owner/:repo/actions/workflows | jq -r '.workflows[] | select(.name=="Build and push containers") | .id' | xargs -I {} gh api repos/:owner/:repo/actions/workflows/{}/runs --jq '.workflow_runs | max_by(.run_number)')
+            status=$(echo "$result" | jq -r '.status')
+            conclusion=$(echo "$result" | jq -r '.conclusion')
+            if [[ "$status" == "completed" ]]; then
+              if [[ "$conclusion" == "success" ]]; then
+                echo "Build and push containers workflow completed successfully"
+                break
+              else
+                echo "Build and push containers workflow failed"
+                exit 1
+              fi
+            elif [[ "$status" == "in_progress" ]]; then
+              echo "Build and push containers workflow is still running"
+              sleep 60
+            else
+              echo "Build and push containers workflow returned unexpected status: $status"
+              exit 1
+            fi
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Checkout
         uses: actions/checkout@v4
+        with:
+          token: ${{ steps.generate_token.outputs.token }}
 
       - name: Create .env file for default settings
         run: |
