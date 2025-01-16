@@ -1,3 +1,9 @@
+#### 2.13.0: Release
+
+ - fix: Clarify `DB_*` entries in `.env.example` file (#185) @ppawlowski
+ - ci: Wait for containers to build before testing docker compose (#184) @ppawlowski
+ - Add NR 4.0.8 to cache (#183) @hardillb
+
 #### 2.12.0: Release
 
  - Add node-red editor cache files (#181)
