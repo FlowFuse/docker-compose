@@ -1,3 +1,7 @@
+#### 2.13.1: Release
+
+ - Bump for 2.13.1 Flowfuse Release @hardillb
+
 #### 2.13.0: Release
 
  - fix: Clarify `DB_*` entries in `.env.example` file (#185) @ppawlowski
