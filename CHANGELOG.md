@@ -1,3 +1,7 @@
+#### 2.14.0: Release
+
+ - Bump hoverkraft-tech/compose-action from 2.0.2 to 2.2.0 (#189)
+
 #### 2.13.1: Release
 
  - Bump for 2.13.1 Flowfuse Release @hardillb
