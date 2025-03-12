@@ -30,6 +30,8 @@ configs:
         options:
           socket: /tmp/docker.sock
           ${DOCKER_DRIVER_PRIVATE_CA_PATH:+privateCA: ${DOCKER_DRIVER_PRIVATE_CA_PATH}}
+          storage:
+            enabled: true
       broker:
         url: mqtt://broker:1883
         public_url: ws${TLS_ENABLED:+s}://mqtt.${DOMAIN:?error}

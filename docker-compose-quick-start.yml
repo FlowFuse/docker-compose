@@ -19,6 +19,8 @@ configs:
         type: docker
         options:
           socket: /tmp/docker.sock
+          storage:
+            enabled: true
       broker:
         url: mqtt://broker:1883
         public_url: ws://mqtt.${DOMAIN:?error}
