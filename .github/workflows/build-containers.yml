@@ -55,13 +55,6 @@ jobs:
           username: flowfuse
           password: ${{ secrets.DOCKER_HUB_PASSWORD_FLOWFUSE }}
           readme-filepath: docker-compose/README.md
-      - name: Resync Maintenance
-        if: ${{ endsWith(github.ref, '.0') }}
-        run: |
-          cd docker-compose
-          git checkout maintenance
-          git reset --hard origin/main
-          git push --force origin maintenance
 
   release-compose-files:
     runs-on: ubuntu-latest
