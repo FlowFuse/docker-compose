@@ -1,3 +1,8 @@
+#### 2.15.0: Release
+
+ - feat: Enable storage for Node-RED intances (#193) @ppawlowski
+ - ci: Remove `Resync Maintenance` step from the pipeline (#192) @ppawlowski
+
 #### 2.14.1: Release
 
 
