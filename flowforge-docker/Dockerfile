@@ -5,7 +5,7 @@ ARG REGISTRY_TOKEN
 RUN if [[ ! -z "$REGISTRY_TOKEN" ]]; then echo "//$REGISTRY/:_authToken=$REGISTRY_TOKEN" >> ~/.npmrc ; fi
 RUN if [[ ! -z "$REGISTRY" ]] ; then npm config set @flowfuse:registry "https://$REGISTRY"; fi
 
-RUN apk add --no-cache --virtual build-base g++ make py3-pip sqlite-dev python3
+RUN apk add --no-cache --virtual build-base g++ make py3-pip sqlite-dev python3 git
 
 WORKDIR /usr/src/forge
 RUN mkdir app bin etc var
