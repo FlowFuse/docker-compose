@@ -452,8 +452,10 @@ services:
     configs:
       - source: postgres_db_setup
         target: /docker-entrypoint-initdb.d/01-setup-db.sh
+        mode: 0664
       - source: postgres_context_setup
         target: /docker-entrypoint-initdb.d/02-setup-context-db.sh
+        mode: 0664
     volumes:
       - db:/var/lib/postgresql/data
     healthcheck:
