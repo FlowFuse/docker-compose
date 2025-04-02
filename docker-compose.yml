@@ -484,8 +484,10 @@ services:
     configs:
       - source: emqx
         target: /opt/emqx/data/configs/cluster.hocon
+        mode: 0664
       - source: emqx-api
         target: /mounted/config/api-keys
+        mode: 0664
     volumes:
       - emqx:/opt/emqx/data
 
