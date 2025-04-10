@@ -1,3 +1,12 @@
+#### 2.16.0: Release
+
+ - Bump peter-evans/dockerhub-description from 4.0.0 to 4.0.2 (#202)
+ - Postgres healthcheck should be run as root not postgres user (#201)
+ - Add git command line tool (#199) @hardillb
+ - fix: Set proper permissions for initialization scripts (#200) @ppawlowski
+ - chore: Pin external actions to commit hash (#196) @ppawlowski
+ - update device cache (#195) @hardillb
+
 #### 2.15.0: Release
 
  - feat: Enable storage for Node-RED intances (#193) @ppawlowski
