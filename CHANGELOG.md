@@ -1,3 +1,8 @@
+#### 2.17.0: Release
+
+ - Bump docker/build-push-action from 6.15.0 to 6.16.0 (#206)
+ - Bump softprops/action-gh-release from 2.2.1 to 2.2.2 (#205)
+
 #### 2.16.0: Release
 
  - Bump peter-evans/dockerhub-description from 4.0.0 to 4.0.2 (#202)
