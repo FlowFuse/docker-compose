@@ -1,3 +1,7 @@
+#### 2.18.0: Release
+
+ - Bump docker/build-push-action from 6.16.0 to 6.18.0 (#209)
+
 #### 2.17.0: Release
 
  - Bump docker/build-push-action from 6.15.0 to 6.16.0 (#206)
