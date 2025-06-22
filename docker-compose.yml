@@ -469,6 +469,7 @@ services:
     image: emqx/emqx:5.8.0
     networks:
       - flowforge
+    restart: always
     ports:
       - 1883:1883
     healthcheck:
