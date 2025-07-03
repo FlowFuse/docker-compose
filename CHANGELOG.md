@@ -1,3 +1,10 @@
+#### 2.19.0: Release
+
+ - Move to NodeJS 20 containers (#204)
+ - Bump docker/setup-buildx-action from 3.10.0 to 3.11.1 (#213)
+ - Bump softprops/action-gh-release from 2.2.2 to 2.3.2 (#211)
+ - Add restart: always policy to broker service in docker-compose.yml (#212) @felix-reck
+
 #### 2.18.0: Release
 
  - Bump docker/build-push-action from 6.16.0 to 6.18.0 (#209)
