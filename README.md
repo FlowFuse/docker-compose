@@ -33,7 +33,7 @@ To build the required containers simply run `./build-containers.sh`.
 
 This will build and tag `flowfuse/forge-docker` and `flowfuse/node-red` and `flowfuse/file-server`.
 
-#### flowfuse/flowforge-docker
+#### flowfuse/forge-docker
 
 This container holds the FlowFuse App and the Docker Driver.
 
