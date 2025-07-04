@@ -17,7 +17,7 @@ LABEL org.label-schema.name="FlowFuse File Storage" \
     org.label-schema.url="https://flowfuse.com" \
     org.label-schema.vcs-type="Git" \
     org.label-schema.vcs-url="https://github.com/FlowFuse/file-server" \
-    org.label-schema.docker.dockerfile="flowfuse-container/Dockerfile" \
+    org.label-schema.docker.dockerfile="flowfuse-docker/Dockerfile" \
     org.schema-label.description="Collaborative, low code integration and automation environment" \
     authors="FlowFuse Inc."
 
