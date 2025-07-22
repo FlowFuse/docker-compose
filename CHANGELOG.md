@@ -1,3 +1,7 @@
+#### 2.19.1: Release
+
+ - Bump hoverkraft-tech/compose-action from 2.2.0 to 2.3.0 (#217)
+
 #### 2.19.0: Release
 
  - Move to NodeJS 20 containers (#204)
