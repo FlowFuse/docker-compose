@@ -1,3 +1,7 @@
+#### 2.20.0: Release
+
+ - Add 4.1.0 to device-agent cache (#220) @hardillb
+
 #### 2.19.1: Release
 
  - Bump hoverkraft-tech/compose-action from 2.2.0 to 2.3.0 (#217)
