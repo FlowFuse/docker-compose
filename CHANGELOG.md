@@ -1,3 +1,9 @@
+#### 2.21.0: Release
+
+ - Bump actions/checkout from 4.2.2 to 5.0.0 (#224)
+ - Bump docker/login-action from 3.4.0 to 3.5.0 (#223)
+ - Bump docker/metadata-action from 5.7.0 to 5.8.0 (#222)
+
 #### 2.20.0: Release
 
  - Add 4.1.0 to device-agent cache (#220) @hardillb
