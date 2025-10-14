@@ -1,3 +1,13 @@
+#### 2.22.1: Release
+
+ - Convert to Docker Secrets (#234)
+ - Bump softprops/action-gh-release from 2.3.4 to 2.4.1 (#235)
+ - Bump peter-evans/dockerhub-description from 4.0.2 to 5.0.0 (#230)
+ - Bump docker/login-action from 3.5.0 to 3.6.0 (#231)
+ - Bump softprops/action-gh-release from 2.3.3 to 2.3.4 (#232)
+ - Bump hoverkraft-tech/compose-action from 2.3.0 to 2.4.0 (#233)
+ - Add NR 4.1.1 to list of device agent cache versions (#236) @knolleary
+
 #### 2.22.0: Release
 
 
