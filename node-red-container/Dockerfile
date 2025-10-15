@@ -17,7 +17,7 @@ RUN chown -R node-red:node-red /usr/src/flowforge-nr-launcher
 RUN ln -s /usr/src/flowforge-nr-launcher /usr/src/flowfuse-nr-launcher
 
 USER node-red
-RUN --mount=type=secret,id=npm,target=/usr/src/node-red/.npmrc npm install @flowfuse/nr-launcher@${BUILD_TAG}
+RUN --mount=type=secret,id=npm,uid=1000,target=/usr/src/node-red/.npmrc npm install @flowfuse/nr-launcher@${BUILD_TAG}
 
 USER root
 RUN mkdir -p /data/storage
