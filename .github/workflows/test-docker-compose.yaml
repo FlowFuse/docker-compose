@@ -68,7 +68,7 @@ jobs:
           sed -i 's/DOMAIN=.*/DOMAIN=ci-example.com/' .env
 
       - name: Create stack
-        uses: hoverkraft-tech/compose-action@b716db5b717cb9b81e391fe638e5aceaa2299e43 # v2.4.0
+        uses: hoverkraft-tech/compose-action@3846bcd61da338e9eaaf83e7ed0234a12b099b72 # v2.4.1
         with:
           compose-file: "./docker-compose.yml"
           up-flags: "-d --quiet-pull"
@@ -146,7 +146,7 @@ jobs:
           sed -i 's/DOMAIN=.*/DOMAIN=ci-example.com/' .env
 
       - name: Create stack
-        uses: hoverkraft-tech/compose-action@b716db5b717cb9b81e391fe638e5aceaa2299e43 # v2.4.0
+        uses: hoverkraft-tech/compose-action@3846bcd61da338e9eaaf83e7ed0234a12b099b72 # v2.4.1
         with:
           compose-file: "./docker-compose-quick-start.yml"
           up-flags: "-d --quiet-pull"
