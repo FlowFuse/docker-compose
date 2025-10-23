@@ -43,7 +43,7 @@ jobs:
                 echo "Build and push containers workflow failed"
                 exit 1
               fi
-            elif [[ "$status" == "in_progress" ]]; then
+            elif [[ "$status" == "in_progress" || "$status" == "queued" ]]; then
               echo "Build and push containers workflow is still running"
               sleep 60
             else
