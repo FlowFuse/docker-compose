@@ -1,3 +1,8 @@
+#### 2.23.0: Release
+
+ - Bump hoverkraft-tech/compose-action from 2.4.0 to 2.4.1 (#239)
+ - fix uid for docker build secret (#238)
+
 #### 2.22.1: Release
 
  - Convert to Docker Secrets (#234)
