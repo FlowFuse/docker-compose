@@ -1,3 +1,7 @@
+#### 2.23.1: Release
+
+ - Handle the `queued` status when waiting for containers to build (#241)
+
 #### 2.23.0: Release
 
  - Bump hoverkraft-tech/compose-action from 2.4.0 to 2.4.1 (#239)
