@@ -1,3 +1,9 @@
+#### 2.24.0: Release
+
+ - Bump softprops/action-gh-release from 2.4.1 to 2.4.2 (#246) @app/dependabot
+ - Bump docker/metadata-action from 5.8.0 to 5.9.0 (#245) @app/dependabot
+ - Bump docker/setup-qemu-action from 3.6.0 to 3.7.0 (#244) @app/dependabot
+
 #### 2.23.1: Release
 
  - Handle the `queued` status when waiting for containers to build (#241)
