@@ -31,6 +31,7 @@ jobs:
 
       - name: Wait for container images build
         run: |
+          sleep 15 # Wait for the build workflow to be registered
           while :; do
             result=$(gh api repos/:owner/:repo/actions/workflows | jq -r '.workflows[] | select(.name=="Build and push containers") | .id' | xargs -I {} gh api repos/:owner/:repo/actions/workflows/{}/runs --jq '.workflow_runs | max_by(.run_number)')
             status=$(echo "$result" | jq -r '.status')
