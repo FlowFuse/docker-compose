@@ -1,3 +1,7 @@
+#### 2.24.1: Release
+
+ - ci: Wait before checking build workflow status in `Test Docker Compose` (#248) @ppawlowski
+
 #### 2.24.0: Release
 
  - Bump softprops/action-gh-release from 2.4.1 to 2.4.2 (#246) @app/dependabot
