@@ -1,3 +1,7 @@
+#### 2.24.2: Release
+
+ - Bump actions/checkout from 5.0.0 to 6.0.0 (#250)
+
 #### 2.24.1: Release
 
  - ci: Wait before checking build workflow status in `Test Docker Compose` (#248) @ppawlowski
