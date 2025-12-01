@@ -1,3 +1,7 @@
+#### 2.24.4: Release
+
+ - Bump docker/metadata-action from 5.9.0 to 5.10.0 (#253)
+
 #### 2.24.3: Release
 
 
