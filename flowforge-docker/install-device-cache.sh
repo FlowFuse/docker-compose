@@ -1,6 +1,6 @@
 #!/bin/sh -x
 
-VERSION_LIST="4.0.4 4.0.5 4.0.7 4.0.8 4.0.9 4.1.0 4.1.1"
+VERSION_LIST="4.0.4 4.0.5 4.0.7 4.0.8 4.0.9 4.1.0 4.1.1 4.1.2"
 
 mkdir -p device/cache
 cd device/cache
