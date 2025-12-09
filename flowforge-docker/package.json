@@ -1,14 +1,14 @@
 {
     "name": "@flowfuse/docker-deployment",
     "description": "FlowFuse in Docker",
-    "version": "2.24.4",
+    "version": "2.24.5",
     "private": true,
     "author": {
         "name": "FlowForge Inc."
     },
     "dependencies": {
-        "@flowfuse/flowfuse": "^2.24.4",
-        "@flowfuse/driver-docker": "^2.24.4",
+        "@flowfuse/flowfuse": "^2.24.5",
+        "@flowfuse/driver-docker": "^2.24.5",
         "pg": "^8.7.1",
         "pg-hstore": "^2.3.4"
     },
