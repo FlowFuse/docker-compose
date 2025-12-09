@@ -1,3 +1,10 @@
+#### 2.24.5: Release
+
+ - Bump softprops/action-gh-release from 2.4.2 to 2.5.0 (#257)
+ - Bump actions/checkout from 6.0.0 to 6.0.1 (#256)
+ - Bump hoverkraft-tech/compose-action from 2.4.1 to 2.4.2 (#255)
+ - Remove under used NR versions from Editor Cache (#242) @hardillb
+
 #### 2.24.4: Release
 
  - Bump docker/metadata-action from 5.9.0 to 5.10.0 (#253)
