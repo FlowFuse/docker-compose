@@ -53,7 +53,7 @@ jobs:
         run: cat docker-compose/README.md
 
       - name: Push README (API)
-        if: true
+        if: false
         run: |
           TOKEN=$(curl -s -X POST \
             -H "Content-Type: application/json" \
@@ -69,7 +69,7 @@ jobs:
             https://hub.docker.com/v2/repositories/flowforge/forge-docker
 
       - name: Push README
-        if: false
+        if: true
         uses: peter-evans/dockerhub-description@1b9a80c056b620d92cedb9d9b5a223409c68ddfa # v5.0.0
         with:
           repository: flowforge/forge-docker
