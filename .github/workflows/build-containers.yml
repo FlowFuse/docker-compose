@@ -54,6 +54,7 @@ jobs:
           platforms: linux/amd64, linux/arm64, linux/arm/v7
           tags: ${{ steps.meta.outputs.tags }}
           push: true
+
       - name: Push README
         uses: peter-evans/dockerhub-description@1b9a80c056b620d92cedb9d9b5a223409c68ddfa # v5.0.0
         with:
@@ -61,6 +62,7 @@ jobs:
           username: flowforge
           password: ${{ secrets.FLOWFORGE_DOCKER_HUB_TOKEN }}
           readme-filepath: docker-compose/README.md
+
       - name: Push README flowfuse
         uses: peter-evans/dockerhub-description@1b9a80c056b620d92cedb9d9b5a223409c68ddfa # v5.0.0
         with:
