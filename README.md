@@ -125,5 +125,3 @@ other - including this repository.
   That will start the standard environment, but the `forge` container will have the
   local source tree mounted, and use `npm run serve` to start the code. This means
   it will automatically rebuild/restart whenever source code changes are made.
-
-  
