@@ -35,13 +35,13 @@ jobs:
         uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3.6.0
         with:
           username: flowforge
-          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+          password: ${{ secrets.FLOWFORGE_DOCKER_HUB_TOKEN }}
 
       - name: List Docker Hub repositories
         run: |
           curl -s -H "Authorization: JWT $(curl -s -X POST \
             -H "Content-Type: application/json" \
-            -d '{"username": "flowforge", "password": "${{ secrets.DOCKER_HUB_PASSWORD }}"}' \
+            -d '{"username": "flowforge", "password": "${{ secrets.FLOWFORGE_DOCKER_HUB_TOKEN }}"}' \
             https://hub.docker.com/v2/users/login/ | jq -r .token)" \
             "https://hub.docker.com/v2/repositories/flowforge/?page_size=100" | jq -r '.results[].name'
 
@@ -59,7 +59,7 @@ jobs:
         with:
           repository: flowforge/forge-docker
           username: flowforge
-          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+          password: ${{ secrets.FLOWFORGE_DOCKER_HUB_TOKEN }}
           readme-filepath: docker-compose/README.md
       - name: Push README flowfuse
         uses: peter-evans/dockerhub-description@1b9a80c056b620d92cedb9d9b5a223409c68ddfa # v5.0.0
