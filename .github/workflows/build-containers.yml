@@ -73,7 +73,7 @@ jobs:
           repository: flowforge/forge-docker
           username: flowforge
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
-          readme-filepath: ${github.workspace}/docker-compose/README2.md
+          readme-filepath: ${{ github.workspace }}/docker-compose/README2.md
 
       - name: Push README flowfuse
         if: false
