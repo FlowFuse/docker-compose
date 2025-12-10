@@ -13,7 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
-          repository: 'flowforge/docker-compose'
           fetch-depth: 0
           path: 'docker-compose'
       - name: Docker Meta Data
@@ -61,7 +60,7 @@ jobs:
             -d '{"username": "flowforge", "password": "${{ secrets.DOCKER_HUB_PASSWORD }}"}' \
             https://hub.docker.com/v2/users/login/ | jq -r .token)
           
-          README_CONTENT=$(cat ./docker-compose/README2.md | jq -Rs .)
+          README_CONTENT=$(cat ./docker-compose/README.md | jq -Rs .)
           
           curl -X PATCH \
             -H "Authorization: Bearer ${TOKEN}" \
