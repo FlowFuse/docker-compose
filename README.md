@@ -30,35 +30,3 @@ This  will mean that any host at `example.com` will resolve to the `192.168.0.8`
 ### Building Containers
 
 To build the required containers simply run `./build-containers.sh`.
-
-This will build and tag `flowfuse/forge-docker` and `flowfuse/node-red` and `flowfuse/file-server`.
-
-#### flowfuse/flowforge-docker
-
-This container holds the FlowFuse App and the Docker Driver.
-
-#### flowfuse/node-red
-
-This is a basic Node-RED image with the FlowFuse Launcher and the required Node-RED plugins to talk to the FlowFuse Platform.
-
-This is the container you can customize for your deployment.
-
-#### flowfuse/file-server
-
-This holds the Object Store used to allow persistent file storage for Projects running on Docker
-
-## Configuration
-
-Configuration details are stored in the `etc/flowforge.yml` file which is mapped into the `flowforge/forge-docker` container. You will need to edit this file to update the `domain` and `base_url` entries to match the DNS settings.
-
-You also need to update the `VIRTUAL_HOST` entry in the `docker-compose.yml` file to use the same domain as in the `etc/flowforge.yml` file.
-
-You should also update the `email` section to point to a local SMTP server so you can invite users to join teams. 
-
-### Creating Instance
-
-Once the container have been built you can start the FlowFuse by running:
-
-```
-docker-compose -p flowforge up -d
-```
