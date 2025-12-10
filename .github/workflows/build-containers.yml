@@ -36,6 +36,15 @@ jobs:
         with:
           username: flowforge
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+      - name: List Docker Hub repositories
+        run: |
+          curl -s -H "Authorization: JWT $(curl -s -X POST \
+            -H "Content-Type: application/json" \
+            -d '{"username": "flowforge", "password": "${{ secrets.DOCKER_HUB_PASSWORD }}"}' \
+            https://hub.docker.com/v2/users/login/ | jq -r .token)" \
+            "https://hub.docker.com/v2/repositories/flowforge/?page_size=100" | jq -r '.results[].name'
+
       - name: Build and push FlowForge Application container
         if: false
         uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
