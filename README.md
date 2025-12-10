@@ -23,7 +23,7 @@ e.g. assuming that Docker is running on a machine with IP address `192.168.0.8` 
 
 This  will mean that any host at `example.com` will resolve to the `192.168.0.8`.
 
-**Note** When testing locally you can not use the loopback address `127.0.0.1` for this, e.g. in the `/etc/hosts` file, as this will resolve to the TCP/IP stack inside each container.
+**Note** When testing locally you can not use the loopback address `127.0.0.1` for this, e.g. in the [`hosts`](https://en.wikipedia.org/wiki/Hosts_(file)) file, as this will resolve to the TCP/IP stack inside each container.
 
 ## Installing FlowFuse
 
