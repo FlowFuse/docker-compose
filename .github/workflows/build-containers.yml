@@ -47,8 +47,14 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           push: true
 
+      - name: List files
+        run: ls -la docker-compose/
+
+      - name: Readme content
+        run: cat docker-compose/README.md
+
       - name: Push README (API)
-        if: false
+        if: true
         run: |
           TOKEN=$(curl -s -X POST \
             -H "Content-Type: application/json" \
@@ -63,11 +69,8 @@ jobs:
             -d "{\"full_description\": ${README_CONTENT}}" \
             https://hub.docker.com/v2/repositories/flowforge/forge-docker
 
-      - name: List files
-        run: ls -la docker-compose/
-
       - name: Push README
-        if: true
+        if: false
         uses: peter-evans/dockerhub-description@1b9a80c056b620d92cedb9d9b5a223409c68ddfa # v5.0.0
         with:
           repository: flowforge/forge-docker
