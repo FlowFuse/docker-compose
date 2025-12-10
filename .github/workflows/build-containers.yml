@@ -46,30 +46,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           push: true
 
-      - name: List files
-        run: ls -la docker-compose/
-
-      - name: Readme content
-        run: cat docker-compose/README.md
-
-      - name: Push README (API)
-        if: false
-        run: |
-          TOKEN=$(curl -s -X POST \
-            -H "Content-Type: application/json" \
-            -d '{"username": "flowforge", "password": "${{ secrets.DOCKER_HUB_PASSWORD }}"}' \
-            https://hub.docker.com/v2/users/login/ | jq -r .token)
-          
-          README_CONTENT=$(cat ./docker-compose/README.md | jq -Rs .)
-          
-          curl -X PATCH \
-            -H "Authorization: Bearer ${TOKEN}" \
-            -H "Content-Type: application/json" \
-            -d "{\"full_description\": ${README_CONTENT}}" \
-            https://hub.docker.com/v2/repositories/flowforge/forge-docker
-
       - name: Push README
-        if: true
         uses: peter-evans/dockerhub-description@1b9a80c056b620d92cedb9d9b5a223409c68ddfa # v5.0.0
         with:
           repository: flowforge/forge-docker
@@ -78,7 +55,6 @@ jobs:
           readme-filepath: ${{ github.workspace }}/docker-compose/README.md
 
       - name: Push README flowfuse
-        if: true
         uses: peter-evans/dockerhub-description@1b9a80c056b620d92cedb9d9b5a223409c68ddfa # v5.0.0
         with:
           repository: flowfuse/forge-docker
