@@ -1,3 +1,7 @@
+#### 2.25.0: Release
+
+ - docs: Lint readme (#261) @ppawlowski
+
 #### 2.24.5: Release
 
  - Bump softprops/action-gh-release from 2.4.2 to 2.5.0 (#257)
