@@ -1,3 +1,10 @@
+#### 2.26.0: Release
+
+ - Bump hoverkraft-tech/compose-action from 2.4.2 to 2.4.3 (#267)
+ - Add version 4.1.3 to device cache (#265)
+ - Bump docker/setup-buildx-action from 3.11.1 to 3.12.0 (#264)
+ - ci: Release compose files after container image (#266) @ppawlowski
+
 #### 2.25.0: Release
 
  - docs: Lint readme (#261) @ppawlowski
