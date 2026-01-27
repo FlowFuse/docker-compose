@@ -1,3 +1,8 @@
+#### 2.26.1: Release
+
+ - Add 4.1.4 to device-agent cache (#271)
+ - Bump actions/checkout from 6.0.1 to 6.0.2 (#269)
+
 #### 2.26.0: Release
 
  - Bump hoverkraft-tech/compose-action from 2.4.2 to 2.4.3 (#267)
