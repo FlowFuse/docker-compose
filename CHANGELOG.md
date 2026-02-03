@@ -1,3 +1,8 @@
+#### 2.26.2: Release
+
+ - Bump docker/login-action from 3.6.0 to 3.7.0 (#275)
+ - chore: Add note to TLS_ENABLED in `.env.example` (#274) @ppawlowski
+
 #### 2.26.1: Release
 
  - Add 4.1.4 to device-agent cache (#271)
