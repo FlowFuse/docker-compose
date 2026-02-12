@@ -1,9 +1,9 @@
 {
     "name": "@flowfuse/file-server-container",
-    "version": "2.26.2",
+    "version": "2.27.0",
     "private": true,
     "dependencies": {
-        "@flowfuse/file-server": "^2.26.2"
+        "@flowfuse/file-server": "^2.27.0"
     },
     "license": "Apache-2.0"
 }
