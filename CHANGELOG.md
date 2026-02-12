@@ -1,3 +1,8 @@
+#### 2.27.0: Release
+
+ - Bump hoverkraft-tech/compose-action from 2.4.3 to 2.5.0 (#277)
+ - Add NR 4.1.5 to install cache (#278) @knolleary
+
 #### 2.26.2: Release
 
  - Bump docker/login-action from 3.6.0 to 3.7.0 (#275)
