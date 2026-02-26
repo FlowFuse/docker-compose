@@ -13,6 +13,13 @@ do
   mkdir $V
   ls -l
   npm install --omit=dev --omit=optional --no-audit --no-fund --prefix "$V" "@node-red/editor-client@$V"
+  # clean up what is not needed
+  rm -rf "$V/node_modules/@node-red/editor-client/public/vendor/font-awesome"
+  rm -rf "$V/node_modules/@node-red/editor-client/public/vendor/jquery"
+  rm -rf "$V/node_modules/@node-red/editor-client/public/vendor/ace"
+  rm -rf "$V/node_modules/@node-red/editor-client/public/vendor/monaco/dist/locale"
+  rm -rf "$V/node_modules/@node-red/editor-client/public/vendor/monaco/dist/theme"
+  rm -rf "$V/node_modules/@node-red/editor-client/locales"
 done
 
 pwd
