@@ -1,3 +1,9 @@
+#### 2.27.1: Release
+
+ - Bump docker/build-push-action from 6.18.0 to 6.19.2 (#280)
+ - Minimise Device Editor cache (#282) @hardillb
+ - Add NR 4.1.6 to device editor cache (#281) @hardillb
+
 #### 2.27.0: Release
 
  - Bump hoverkraft-tech/compose-action from 2.4.3 to 2.5.0 (#277)
