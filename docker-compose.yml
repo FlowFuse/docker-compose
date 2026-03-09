@@ -410,7 +410,7 @@ configs:
   emqx-api:
     content: |
       flowfuse:verySecret:administrator
-  npm:
+  npm-registry-config:
     content: |
       storage: /verdaccio/storage
       web:
@@ -573,8 +573,8 @@ services:
     profiles:
       - autotls
 
-  npm:
-    image: "flowfuse-npm-registry"
+  npm-registry:
+    image: "flowfuse/npm-registry:0.0.1"
     networks:
       - flowforge
     restart: always
@@ -582,10 +582,10 @@ services:
       - "VIRTUAL_HOST=npm.${DOMAIN:?error}"
       - "VIRTUAL_PORT=4873"
     configs:
-      - source: npm
+      - source: npm-registry-config
         target: /verdaccio/conf/config.yaml
     volumes:
-      - "npm:/verdaccio/storage"
+      - "npm-registry:/verdaccio/storage"
     depends_on:
       - nginx
 
@@ -600,4 +600,4 @@ volumes:
   fileStorage:
   acme:
   emqx:
-  npm:
+  npm-registry:
