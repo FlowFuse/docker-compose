@@ -582,7 +582,7 @@ services:
       - "VIRTUAL_HOST=npm.${DOMAIN:?error}"
       - "VIRTUAL_PORT=4873"
     configs:
-      - source: npm/
+      - source: npm
         target: /verdaccio/conf/config.yaml
     volumes:
       - "npm:/verdaccio/storage"
