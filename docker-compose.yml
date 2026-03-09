@@ -40,6 +40,12 @@ configs:
       fileStore:
         enable: true
         url: http://file-server:3001
+      npmRegistry:
+        enabled: true
+        url: http://npm:4873
+        admin:
+          username: admin
+          password: ${NPM_PASSWORD:-secret}
   flowfuse_storage:
     content: |
       port: 3001
@@ -404,6 +410,20 @@ configs:
   emqx-api:
     content: |
       flowfuse:verySecret:administrator
+  npm:
+    content: |
+      storage: /verdaccio/storage
+      web:
+        enable: false
+      auth:
+        ff-auth:
+          baseURL: http://forge:3000
+          adminUser: admin
+          adminSecret: ${NPM_PASSWORD:-secret}
+      packages:
+        '@*/*':
+          access: $authenticated
+      log: { type: stdout, format: pretty, level: http }
 
 services:
   nginx:
@@ -553,19 +573,21 @@ services:
     profiles:
       - autotls
 
-  # npm:
-  #   image: "verdaccio/verdaccio:5"
-  #   networks:
-  #     - flowforge
-  #   restart: always
-  #   environment:
-  #     - "VIRTUAL_HOST=npm.${DOMAIN:?error}"
-  #     - "VIRTUAL_PORT=4873"
-  #   volumes:
-  #     - "./npm/conf:/verdaccio/conf"
-  #     - "./npm/storage:/verdaccio/storage"
-  #   depends_on:
-  #     - nginx
+  npm:
+    image: "flowfuse-npm-registry"
+    networks:
+      - flowforge
+    restart: always
+    environment:
+      - "VIRTUAL_HOST=npm.${DOMAIN:?error}"
+      - "VIRTUAL_PORT=4873"
+    configs:
+      - source: npm/
+        target: /verdaccio/conf/config.yaml
+    volumes:
+      - "npm:/verdaccio/storage"
+    depends_on:
+      - nginx
 
 networks:
   flowforge:
@@ -578,3 +600,4 @@ volumes:
   fileStorage:
   acme:
   emqx:
+  npm:
