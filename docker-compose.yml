@@ -42,7 +42,7 @@ configs:
         url: http://file-server:3001
       npmRegistry:
         enabled: true
-        url: http://npm:4873
+        url: http://npm-registry:4873
         admin:
           username: admin
           password: ${NPM_PASSWORD:-secret}
