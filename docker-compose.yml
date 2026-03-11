@@ -520,12 +520,14 @@ services:
     environment:
       - "VIRTUAL_HOST=${APPLICATION_DOMAIN:-forge.${DOMAIN}}"
       - "LETSENCRYPT_HOST=${APPLICATION_DOMAIN:-forge.${DOMAIN}}"
+#      - "NODE_EXTRA_CA_CERTS=/usr/local/ssl-certs/chain.pem"
     configs:
       - source: flowfuse
         target: /usr/src/forge/etc/flowforge.yml
     volumes:
       - "/var/run/docker.sock:/tmp/docker.sock"
       - flowfuse-persistent-storage:/opt/persistent-storage
+#      - ${DOCKER_DRIVER_PRIVATE_CA_PATH}:/usr/local/ssl-certs/chain.pem
     depends_on:
       - "postgres"
       - "nginx"
