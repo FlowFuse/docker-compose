@@ -422,7 +422,7 @@ configs:
           adminSecret: ${NPM_PASSWORD:-secret}
       packages:
         '@*/*':
-          access: $authenticated
+          access: $$authenticated
       log: { type: stdout, format: pretty, level: http }
 
 services:
@@ -581,6 +581,7 @@ services:
     environment:
       - "VIRTUAL_HOST=npm.${DOMAIN:?error}"
       - "VIRTUAL_PORT=4873"
+      - "LETSENCRYPT_HOST=npm.${DOMAIN}"
     configs:
       - source: npm-registry-config
         target: /verdaccio/conf/config.yaml
