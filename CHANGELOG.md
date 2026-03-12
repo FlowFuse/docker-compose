@@ -1,3 +1,17 @@
+#### 2.28.0: Release
+
+ - Fix $ escaping and add LETSENCRYPT for npm registry (#296)
+ - Ensure external npm URL is used (#293)
+ - Update npm registry URL in docker-compose.yml (#292)
+ - Bump docker/setup-buildx-action from 3.12.0 to 4.0.0 (#285)
+ - Bump docker/login-action from 3.7.0 to 4.0.0 (#286)
+ - Bump docker/setup-qemu-action from 3.7.0 to 4.0.0 (#287)
+ - Bump docker/metadata-action from 5.10.0 to 6.0.0 (#288)
+ - Bump docker/build-push-action from 6.19.2 to 7.0.0 (#289)
+ - Add Team NPM registry support (#291)
+ - Add version 4.1.7 to Device Cache (#298) @knolleary
+ - feat: Mount DOCKER_DRIVER_PRIVATE_CA_PATH in forge service (#297) @ppawlowski
+
 #### 2.27.1: Release
 
  - Bump docker/build-push-action from 6.18.0 to 6.19.2 (#280)
