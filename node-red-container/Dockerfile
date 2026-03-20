@@ -2,7 +2,11 @@ FROM nodered/node-red:3.1.15-18
 
 ARG BUILD_TAG=latest
 
+USER root
 RUN npm install -g npm
+RUN chown -R 1000:1000 "/data/.npm"
+
+USER node-red
 
 COPY healthcheck.js /healthcheck.js
 
