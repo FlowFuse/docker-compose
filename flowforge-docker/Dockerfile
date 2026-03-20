@@ -1,6 +1,7 @@
 FROM node:20-alpine
 
 RUN apk add --no-cache --virtual build-base g++ make py3-pip sqlite-dev python3 git
+RUN npm install -g npm
 
 WORKDIR /usr/src/forge
 RUN mkdir app bin etc var
