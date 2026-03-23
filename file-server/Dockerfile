@@ -2,6 +2,8 @@ FROM node:20-alpine
 
 ARG TAG
 
+RUN npm install -g npm
+
 WORKDIR /usr/src/flowforge-file-server
 RUN mkdir app bin etc var
 COPY package.json /usr/src/flowforge-file-server/app

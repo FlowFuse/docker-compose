@@ -1,6 +1,9 @@
-FROM node:16-alpine
+FROM node:20-alpine
 
 ARG REGISTRY
+
+RUN npm install -g npm
+
 RUN if [[ ! -z "$REGISTRY" ]] ; then npm config set @flowforge:registry "$REGISTRY"; fi
 
 RUN apk add --no-cache --virtual build-base g++ make py3-pip sqlite-dev python2
