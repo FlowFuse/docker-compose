@@ -427,7 +427,7 @@ configs:
 
 services:
   nginx:
-    image: nginxproxy/nginx-proxy:1.6.0
+    image: nginxproxy/nginx-proxy:1.10-alpine
     networks:
       - flowforge 
     restart: always
@@ -559,7 +559,7 @@ services:
       start_period: 10s
 
   acme:
-    image: nginxproxy/acme-companion:2.4.0
+    image: nginxproxy/acme-companion:2.6.0
     networks:
       - flowforge
     restart: always
