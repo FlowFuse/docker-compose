@@ -1,3 +1,11 @@
+#### 2.28.1: Release
+
+ - Bump softprops/action-gh-release from 2.5.0 to 2.6.1 (#301)
+ - Bump actions/create-github-app-token from 2.2.1 to 3.0.0 (#302)
+ - Add version 4.1.8 to device cache (#307) @knolleary
+ - Add npm update to all Dockerfiles (#305) @knolleary
+ - ci: replace `tibdex/github-app-token` with `actions/create-github-app-token` (#300) @ppawlowski
+
 #### 2.28.0: Release
 
  - Fix $ escaping and add LETSENCRYPT for npm registry (#296)
