@@ -72,4 +72,3 @@ jobs:
         with:
           files: |
             docker-compose.yml
-            docker-compose-quick-start.yml
