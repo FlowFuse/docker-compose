@@ -1,3 +1,8 @@
+#### 2.29.0: Release
+
+ - Remove quick start docker compose file and references (#309) @ppawlowski
+ - chore: Bump `acme-companion` and `nginx-proxy` versions (#306) @ppawlowski
+
 #### 2.28.1: Release
 
  - Bump softprops/action-gh-release from 2.5.0 to 2.6.1 (#301)
