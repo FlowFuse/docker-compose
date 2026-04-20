@@ -17,17 +17,8 @@ jobs:
     if: | 
       !startsWith(github.head_ref, 'release-')
     steps:
-      - name: Generate a token
-        id: generate_token
-        uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # v3.0.0
-        with:
-          app-id: ${{ secrets.GH_BOT_APP_ID }}
-          private-key: ${{ secrets.GH_BOT_APP_KEY }}
-
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          token: ${{ steps.generate_token.outputs.token }}
 
       - name: Wait for container images build
         run: |
