@@ -1,3 +1,13 @@
+#### 2.30.0: Release
+
+ - Bump hoverkraft-tech/compose-action from 2.5.0 to 2.6.0 (#316)
+ - Bump docker/build-push-action from 7.0.0 to 7.1.0 (#315)
+ - Remove generate token step from `Test Docker Compose` (#317)
+ - Bump softprops/action-gh-release from 2.6.1 to 3.0.0 (#313)
+ - Bump docker/login-action from 4.0.0 to 4.1.0 (#310)
+ - Add 4.1.9 to device agent editor cache (#319) @hardillb
+ - ci: Use new project-automation workflow (#318) @ppawlowski
+
 #### 2.29.1: Release
 
 
