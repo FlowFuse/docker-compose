@@ -1,3 +1,7 @@
+#### 2.30.1: Release
+
+ - Replace NR 4.1.9 with 4.1.10 (#321) @hardillb
+
 #### 2.30.0: Release
 
  - Bump hoverkraft-tech/compose-action from 2.5.0 to 2.6.0 (#316)
