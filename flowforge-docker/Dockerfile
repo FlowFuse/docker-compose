@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:24-alpine
 
 RUN apk add --no-cache --virtual build-base g++ make py3-pip sqlite-dev python3 git
 RUN npm install -g npm
