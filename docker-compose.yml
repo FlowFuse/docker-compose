@@ -46,6 +46,8 @@ configs:
         admin:
           username: admin
           password: ${NPM_PASSWORD:-secret}
+      ai:
+        enabled: true
   flowfuse_storage:
     content: |
       port: 3001
