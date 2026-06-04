@@ -1,3 +1,14 @@
+#### 2.31.0: Release
+
+ - Add 4.1.11 to device agent cache (#333)
+ - feat: Add ai.enabled Flag (#326)
+ - Bump docker/metadata-action from 6.0.0 to 6.1.0 (#327)
+ - Bump docker/login-action from 4.1.0 to 4.2.0 (#329)
+ - Bump docker/build-push-action from 7.1.0 to 7.2.0 (#328)
+ - Bump docker/setup-buildx-action from 4.0.0 to 4.1.0 (#330)
+ - ci: enable dependabot cooldown (#324) @ppawlowski
+ - Bump to NodeJS 24 base containers (#323) @hardillb
+
 #### 2.30.1: Release
 
  - Replace NR 4.1.9 with 4.1.10 (#321) @hardillb
