@@ -515,7 +515,7 @@ services:
       - emqx:/opt/emqx/data
 
   forge:
-    image: "flowfuse/forge-docker:2.31.2"
+    image: "flowfuse/forge-docker:2.31.3"
     networks: 
       - flowforge
     restart: always
@@ -542,7 +542,7 @@ services:
       start_period: 10s
 
   file-server:
-    image: "flowfuse/file-server:2.31.2"
+    image: "flowfuse/file-server:2.31.3"
     networks:
       - flowforge
     restart: always
