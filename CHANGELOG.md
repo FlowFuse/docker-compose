@@ -1,3 +1,13 @@
+#### 2.32.0: Release
+
+ - Add 5.x to build cache (#342)
+ - Bump softprops/action-gh-release from 3.0.0 to 3.0.1 (#340)
+ - Bump actions/checkout from 6.0.3 to 7.0.0 (#341)
+ - Bump actions/checkout from 6.0.2 to 6.0.3 (#331)
+ - chore: Bump docker/setup-qemu-action from 4.0.0 to 4.1.0 (#332)
+ - Bump hoverkraft-tech/compose-action from 2.6.0 to 3.0.0 (#337)
+ - ci: set dependabot pull request limit to 30 (#339)
+
 #### 2.31.3: Release
 
 
