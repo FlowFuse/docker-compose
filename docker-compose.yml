@@ -48,6 +48,21 @@ configs:
           password: ${NPM_PASSWORD:-secret}
       ai:
         enabled: true
+      assistant:
+        enabled: true
+        service:
+          url: ${ASSISTANT_URL:-https://expert.flowfuse.com/v1/openai}
+          token: ${ASSISTANT_TOKEN:-FlowFuseAssistantToken}
+      expert:
+        enabled: true
+        service:
+          url: ${EXPERT_URL:-https://expert.flowfuse.com/v4/expert}
+          token: ${EXPERT_TOKEN:-FlowFuseExpertToken}
+        centralBroker:
+          server: ${EXPERT_BROKER_SERVER:-expert-broker.flowfuse.com}:${EXPERT_BROKER_PORT:-8883}
+          ssl: true
+        insights:
+          enabled: true
   flowfuse_storage:
     content: |
       port: 3001
