@@ -1,3 +1,13 @@
+#### 2.32.1: Release
+
+ - fix: Add `assistant` and `expert` to the `flowfuse` config (#352)
+ - Bump docker/build-push-action from 7.2.0 to 7.3.0 (#346)
+ - Bump docker/login-action from 4.2.0 to 4.4.0 (#344)
+ - Bump docker/metadata-action from 6.1.0 to 6.2.0 (#345)
+ - Bump docker/setup-buildx-action from 4.1.0 to 4.2.0 (#347)
+ - Bump docker/setup-qemu-action from 4.1.0 to 4.2.0 (#348)
+ - ci: Add slack notification to the release pipeline (#349)
+
 #### 2.32.0: Release
 
  - Add 5.x to build cache (#342)
