@@ -1,3 +1,7 @@
+#### 2.33.0: Release
+
+ - Update for NR 5.0.2 and 4.1.12 (#356)
+
 #### 2.32.1: Release
 
  - fix: Add `assistant` and `expert` to the `flowfuse` config (#352)
