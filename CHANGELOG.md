@@ -1,3 +1,7 @@
+#### 2.33.1: Release
+
+ - Update version list in install-device-cache.sh (#358)
+
 #### 2.33.0: Release
 
  - Update for NR 5.0.2 and 4.1.12 (#356)
