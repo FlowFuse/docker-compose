@@ -37,6 +37,12 @@ configs:
         public_url: ws${TLS_ENABLED:+s}://mqtt.${DOMAIN:?error}
         teamBroker:
           enabled: true
+          # Admin API credentials for the local EMQX (bootstrapped in the emqx-api
+          # config below). Required for the Expert chat bridge to provision itself.
+          api:
+            url: http://broker:18083/api/v5
+            key: ${BROKER_API_KEY:-flowfuse}
+            secret: ${BROKER_API_SECRET:-verySecret}
       fileStore:
         enable: true
         url: http://file-server:3001
@@ -426,7 +432,7 @@ configs:
       }
   emqx-api:
     content: |
-      flowfuse:verySecret:administrator
+      ${BROKER_API_KEY:-flowfuse}:${BROKER_API_SECRET:-verySecret}:administrator
   npm-registry-config:
     content: |
       storage: /verdaccio/storage
