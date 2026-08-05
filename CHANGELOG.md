@@ -1,3 +1,10 @@
+#### 2.33.2: Release
+
+ - Bump softprops/action-gh-release from 3.0.1 to 3.0.2 (#350)
+ - Bump actions/checkout from 7.0.0 to 7.0.1 (#354)
+ - Bump docker/login-action from 4.4.0 to 4.6.0 (#361)
+ - Add team broker admin API credentials for the Expert bridge (#360)
+
 #### 2.33.1: Release
 
  - Update version list in install-device-cache.sh (#358)
