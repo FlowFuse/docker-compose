@@ -1,3 +1,7 @@
+#### 3.0.0: Release
+
+ - Bump hoverkraft-tech/compose-action from 3.0.0 to 3.1.0 (#364)
+
 #### 2.33.2: Release
 
  - Bump softprops/action-gh-release from 3.0.1 to 3.0.2 (#350)
