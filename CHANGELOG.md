@@ -1,3 +1,8 @@
+#### 3.0.1: Release
+
+ - Update build-cache to include version 5.0.6 instead of 5.0.5 (#368)
+ - Bump NR 5.0.5 & 4.1.14 (#367)
+
 #### 3.0.0: Release
 
  - Bump hoverkraft-tech/compose-action from 3.0.0 to 3.1.0 (#364)
