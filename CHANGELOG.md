@@ -1,3 +1,7 @@
+#### 3.0.2: Release
+
+ - Update VERSION_LIST to include 5.0.7 (#372)
+
 #### 3.0.1: Release
 
  - Update build-cache to include version 5.0.6 instead of 5.0.5 (#368)
