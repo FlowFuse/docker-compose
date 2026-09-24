@@ -1,3 +1,11 @@
+#### 3.1.0: Release
+
+ - Bump hoverkraft-tech/compose-action from 3.1.0 to 3.2.0 (#379)
+ - Bump softprops/action-gh-release from 3.0.2 to 3.0.3 (#369)
+ - Bump docker/setup-qemu-action from 4.2.0 to 4.4.0 (#376)
+ - Bump docker/build-push-action from 7.3.0 to 7.4.0 (#375)
+ - Bump docker/setup-buildx-action from 4.2.0 to 4.4.0 (#374)
+
 #### 3.0.2: Release
 
  - Update VERSION_LIST to include 5.0.7 (#372)
