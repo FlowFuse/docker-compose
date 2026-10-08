@@ -1,3 +1,7 @@
+#### 3.1.1: Release
+
+ - Add NR 5.0.8 & 4.1.16 (#381)
+
 #### 3.1.0: Release
 
  - Bump hoverkraft-tech/compose-action from 3.1.0 to 3.2.0 (#379)
