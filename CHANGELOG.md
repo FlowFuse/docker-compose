@@ -1,3 +1,7 @@
+#### 3.2.0: Release
+
+ - Update VERSION_LIST with new version 4.1.17 and 5.0.9 (#383)
+
 #### 3.1.1: Release
 
  - Add NR 5.0.8 & 4.1.16 (#381)
