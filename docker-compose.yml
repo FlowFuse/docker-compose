@@ -120,7 +120,7 @@ configs:
       ESQL
       psql -v ON_ERROR_STOP=1 -U root flowforge <<-ESQL
         GRANT ALL PRIVILEGES ON DATABASE flowforge TO ${DB_USER:-forge};
-        GRANT ALL ON SCHEMA public TO ${DB_USER:-forge}
+        GRANT ALL ON SCHEMA public TO ${DB_USER:-forge};
       ESQL
   postgres_context_setup:
     content: |
@@ -129,9 +129,9 @@ configs:
       psql -v ON_ERROR_STOP=1 -U root <<-ESQL
         SELECT 'CREATE DATABASE "ff-context"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'ff-context')\gexec
       ESQL
-      psql -v ON_ERROR_STOP=1 -U root ff-context <<-ESQL
+      psql -v ON_ERROR_STOP=1 -U root "ff-context" <<-ESQL
         GRANT ALL PRIVILEGES ON DATABASE "ff-context" TO "${DB_USER:-forge}";
-        GRANT ALL ON SCHEMA public TO ${DB_USER:-forge}
+        GRANT ALL ON SCHEMA public TO ${DB_USER:-forge};
       ESQL
   emqx:
     content: |
