@@ -1,3 +1,12 @@
+#### 3.3.0: Release
+
+ - Update VERSION_LIST with new version 4.1.18 and 5.0.10 (#390)
+ - Bump hoverkraft-tech/compose-action from 3.2.0 to 3.2.1 (#391)
+ - fix: db init scripts work with PG16 (#387)
+ - Bump docker/login-action from 4.7.0 to 4.8.0 (#388)
+ - Bump softprops/action-gh-release from 3.0.3 to 3.0.4 (#389)
+ - Bump docker/login-action from 4.6.0 to 4.7.0 (#385)
+
 #### 3.2.0: Release
 
  - Update VERSION_LIST with new version 4.1.17 and 5.0.9 (#383)
