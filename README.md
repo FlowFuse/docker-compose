@@ -65,6 +65,22 @@ docker-compose -p flowforge up -d
 
 This will also create a directory called `db` to hold the database files used to store project instance and user information.
 
+## Time-series databases
+
+An Enterprise licence lets each team have its own QuestDB server. It is off by default.
+
+1. Set `TIMESERIES_ENABLED=true` in `.env`.
+2. Start the stack with the `timeseries` profile, which adds the PgBouncer service that devices use to query: `docker compose -p flowfuse --profile timeseries up -d`.
+3. Add a wildcard DNS entry for `*.ts.${DOMAIN}` that points at the Docker host. Each team server is published as `<random name>.ts.${DOMAIN}`.
+4. Open `TIMESERIES_PGWIRE_PORT` (default `5432`) on the host firewall. Devices connect to it on your FlowFuse host name, and PgBouncer uses the same TLS certificate as the platform when `TLS_ENABLED` is set.
+5. Set `vm.max_map_count=1048576` on the Docker host.
+
+Set `TIMESERIES_ALLOW_PRIVATE_NETWORKS=true` only if team owners will connect their own QuestDB servers that sit on a private network. The platform checks those connections when they are saved, and by default refuses private addresses so the check cannot be used to probe your network.
+
+`TIMESERIES_IMAGE` sets the QuestDB image for new servers.
+
+See [Time-series databases](https://flowfuse.com/docs/install/timeseries/) in the FlowFuse documentation for the prerequisites, backups, upgrades and what to do when a disk fills up.
+
 # Upgrading
 
 If upgrading from version before version 1.2.0 you will need to manually create the database for the persistent context store.
