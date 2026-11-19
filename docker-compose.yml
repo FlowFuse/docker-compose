@@ -52,6 +52,32 @@ configs:
         admin:
           username: admin
           password: ${NPM_PASSWORD:-secret}
+      timeseries:
+        enabled: ${TIMESERIES_ENABLED:-false}
+        driver:
+          type: docker
+          options:
+            image: ${TIMESERIES_IMAGE:-questdb/questdb:9.0.1}
+            domain: ts.${DOMAIN:?error}
+            letsencrypt: ${TLS_ENABLED:+true}
+            vhostDir: /etc/nginx/vhost.d
+            defaultTier: small
+            tiers:
+              small:
+                cpu: 1
+                memory: 2g
+              medium:
+                cpu: 2
+                memory: 8g
+        pgbouncer:
+          host: ${APPLICATION_DOMAIN:-forge.${DOMAIN}}
+          port: ${TIMESERIES_PGWIRE_PORT:-5432}
+          ssl: ${TLS_ENABLED:+true}
+          maxConnectionsPerTeam: 10
+          configDir: /opt/timeseries-pgbouncer
+        external:
+          enabled: true
+          allowPrivateNetworks: ${TIMESERIES_ALLOW_PRIVATE_NETWORKS:-false}
       ai:
         enabled: true
       assistant:
@@ -91,6 +117,20 @@ configs:
   nginx:
     content: |
       client_max_body_size 5m;
+  pgbouncer:
+    content: |
+      [pgbouncer]
+      listen_addr = 0.0.0.0
+      listen_port = 5432
+      auth_type = scram-sha-256
+      pool_mode = transaction
+      max_client_conn = 1000
+      default_pool_size = 5
+      max_db_connections = 10
+      server_tls_sslmode = disable
+      ignore_startup_parameters = extra_float_digits
+  pgbouncer_run:
+    file: ./pgbouncer/run.sh
   nginx_main_tls_crt:
     environment: TLS_CERTIFICATE
   nginx_main_tls_key:
@@ -464,6 +504,7 @@ services:
       - "/var/run/docker.sock:/tmp/docker.sock:ro"
       - "nginx-proxy-certs:/etc/nginx/certs"
       - "nginx-proxy-html:/usr/share/nginx/html"
+      - "nginx-proxy-vhost:/etc/nginx/vhost.d"
     configs:
       - source: nginx
         target: /etc/nginx/conf.d/my_proxy.conf
@@ -541,6 +582,37 @@ services:
     volumes:
       - emqx:/opt/emqx/data
 
+  pgbouncer:
+    image: "edoburu/pgbouncer:v1.26.1-p0"
+    networks:
+      - flowforge
+    restart: always
+    entrypoint: ["/bin/sh", "/etc/pgbouncer/base/run.sh"]
+    environment:
+      # Manual certificates (APP_TLS_*, then TLS_*), then the one acme-companion issued for forge
+      - "PGBOUNCER_TLS_CERT=/etc/pgbouncer/tls/app.crt:/etc/pgbouncer/tls/main.crt:/etc/nginx/certs/${APPLICATION_DOMAIN:-forge.${DOMAIN}}.crt"
+      - "PGBOUNCER_TLS_KEY=/etc/pgbouncer/tls/app.key:/etc/pgbouncer/tls/main.key:/etc/nginx/certs/${APPLICATION_DOMAIN:-forge.${DOMAIN}}.key"
+    configs:
+      - source: pgbouncer
+        target: /etc/pgbouncer/base/pgbouncer.ini
+      - source: pgbouncer_run
+        target: /etc/pgbouncer/base/run.sh
+      - source: nginx_app_tls_crt
+        target: /etc/pgbouncer/tls/app.crt
+      - source: nginx_app_tls_key
+        target: /etc/pgbouncer/tls/app.key
+      - source: nginx_main_tls_crt
+        target: /etc/pgbouncer/tls/main.crt
+      - source: nginx_main_tls_key
+        target: /etc/pgbouncer/tls/main.key
+    volumes:
+      - "timeseries-pgbouncer:/etc/pgbouncer/dynamic:ro"
+      - "nginx-proxy-certs:/etc/nginx/certs:ro"
+    ports:
+      - "${TIMESERIES_PGWIRE_PORT:-5432}:5432"
+    profiles:
+      - timeseries
+
   forge:
     image: "flowfuse/forge-docker:3.2.0"
     networks: 
@@ -556,6 +628,8 @@ services:
     volumes:
       - "/var/run/docker.sock:/tmp/docker.sock"
       - flowfuse-persistent-storage:/opt/persistent-storage
+      - "nginx-proxy-vhost:/etc/nginx/vhost.d"
+      - "timeseries-pgbouncer:/opt/timeseries-pgbouncer"
 #      - ${DOCKER_DRIVER_PRIVATE_CA_PATH}:/usr/local/ssl-certs/chain.pem
     depends_on:
       - "postgres"
@@ -629,6 +703,8 @@ volumes:
   db:
   nginx-proxy-certs:
   nginx-proxy-html:
+  nginx-proxy-vhost:
+  timeseries-pgbouncer:
   fileStorage:
   acme:
   emqx:
